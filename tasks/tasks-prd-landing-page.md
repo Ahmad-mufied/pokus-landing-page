@@ -30,12 +30,12 @@
   - [x] 1.4 Set up a theme provider in `src/app/layout.tsx` to handle light/dark mode switching.
   - [x] 1.5 Install Vercel Analytics package: `@vercel/analytics`.
 
-- [ ] 2.0 Core Layout & Component Scaffolding
-  - [ ] 2.1 Create the main page layout in `src/app/page.tsx` by creating placeholders for each section.
-  - [ ] 2.2 Create empty component files for each section: `hero.tsx`, `features.tsx`, `demo.tsx`, `benefits.tsx`, `testimonials.tsx`, `faq.tsx`, `team.tsx`, and `footer.tsx` inside `src/components/sections/`.
-  - [ ] 2.3 Implement the `Footer` component with copyright info and placeholder links for Privacy Policy and Terms of Service.
-  - [ ] 2.4 Create a reusable `Button` component in `src/components/ui/` that matches the project's design system.
-  - [ ] 2.5 Create a reusable `Card` component in `src/components/ui/` for use in the Features, Benefits, and Team sections.
+- [x] 2.0 Core Layout & Component Scaffolding
+  - [x] 2.1 Create the main page layout in `src/app/page.tsx` by creating placeholders for each section.
+  - [x] 2.2 Create empty component files for each section: `hero.tsx`, `features.tsx`, `demo.tsx`, `benefits.tsx`, `testimonials.tsx`, `faq.tsx`, `team.tsx`, and `footer.tsx` inside `src/components/sections/`.
+  - [x] 2.3 Implement the `Footer` component with copyright info and placeholder links for Privacy Policy and Terms of Service.
+  - [x] 2.4 Create a reusable `Button` component in `src/components/ui/` that matches the project's design system.
+  - [x] 2.5 Create a reusable `Card` component in `src/components/ui/` for use in the Features, Benefits, and Team sections.
 
 - [ ] 3.0 Static Content Sections Implementation
   - [ ] 3.1 Implement the `Hero` section UI with a placeholder headline, sub-headline, and the primary "Add to Chrome" button.

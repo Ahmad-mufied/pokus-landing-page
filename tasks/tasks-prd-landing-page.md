@@ -38,9 +38,9 @@
   - [x] 2.5 Create a reusable `Card` component in `src/components/ui/` for use in the Features, Benefits, and Team sections.
 
 - [ ] 3.0 Static Content Sections Implementation
-  - [ ] 3.1 Implement the `Hero` section UI with a placeholder headline, sub-headline, and the primary "Add to Chrome" button.
-  - [ ] 3.2 Implement the `Features` section, creating a card/item for each of the three core features (Site Blocker, Pomodoro Timer, Ambient Sounds).
-  - [ ] 3.3 Implement the `Benefits` section using cards or bullet points to list the advantages.
+  - [x] 3.1 Implement the `Hero` section UI with a placeholder headline, sub-headline, and the primary "Add to Chrome" button.
+  - [x] 3.2 Implement the `Features` section, creating a card/item for each of the three core features (Site Blocker, Pomodoro Timer, Ambient Sounds).
+  - [x] 3.3 Implement the `Benefits` section using cards or bullet points to list the advantages.
   - [ ] 3.4 Implement the `FAQ` section using an accordion or a simple list for the questions and answers.
   - [ ] 3.5 Implement the `Team` section, creating a 4-column grid with placeholders for photo, name, role, and social links.
   - [ ] 3.6 Implement the final Call-to-Action section, reusing the primary button.

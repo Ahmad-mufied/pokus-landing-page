@@ -23,12 +23,12 @@
 
 ## Tasks
 
-- [ ] 1.0 Project Setup & Configuration
-  - [ ] 1.1 Initialize a new Next.js project with TypeScript and Tailwind CSS using `npx create-next-app@latest --typescript --tailwind --eslint`.
-  - [ ] 1.2 Configure `tailwind.config.ts` with the color palette, fonts (`Inter`, `Source Serif 4`), and border-radius defined in the PRD.
-  - [ ] 1.3 Add the light and dark mode color variables to `src/styles/globals.css`.
-  - [ ] 1.4 Set up a theme provider in `src/app/layout.tsx` to handle light/dark mode switching.
-  - [ ] 1.5 Install Vercel Analytics package: `@vercel/analytics`.
+- [x] 1.0 Project Setup & Configuration
+  - [x] 1.1 Initialize a new Next.js project with TypeScript and Tailwind CSS using `npx create-next-app@latest --typescript --tailwind --eslint`.
+  - [x] 1.2 Configure `tailwind.config.ts` with the color palette, fonts (`Inter`, `Source Serif 4`), and border-radius defined in the PRD.
+  - [x] 1.3 Add the light and dark mode color variables to `src/styles/globals.css`.
+  - [x] 1.4 Set up a theme provider in `src/app/layout.tsx` to handle light/dark mode switching.
+  - [x] 1.5 Install Vercel Analytics package: `@vercel/analytics`.
 
 - [ ] 2.0 Core Layout & Component Scaffolding
   - [ ] 2.1 Create the main page layout in `src/app/page.tsx` by creating placeholders for each section.

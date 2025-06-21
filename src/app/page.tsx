@@ -1,4 +1,5 @@
 import Benefits from "@/components/sections/benefits";
+import Cta from "@/components/sections/cta";
 import Demo from "@/components/sections/demo";
 import Faq from "@/components/sections/faq";
 import Features from "@/components/sections/features";
@@ -17,7 +18,7 @@ export default function Home() {
       <Testimonials />
       <Faq />
       <Team />
-      {/* The final CTA will be part of the Team or a separate small component later */}
+      <Cta />
       <Footer />
     </main>
   );

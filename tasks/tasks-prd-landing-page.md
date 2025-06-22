@@ -48,7 +48,7 @@
   
 
 - [ ] 4.0 Media & Interactive Sections Implementation
-  - [ ] 4.1 In the `Demo` section, add placeholders for the short video loops and the main demonstration video.
+  - [x] 4.1 In the `Demo` section, add placeholders for the short video loops and the main demonstration video.
   - [ ] 4.2 In the `Testimonials` section, implement the UI to display 5 placeholder testimonials.
   - [ ] 4.3 Ensure all interactive elements like buttons and links have clear hover and focus states as defined in the UI design.
   - [ ] 4.4 Make the entire landing page fully responsive for tablet and mobile devices.

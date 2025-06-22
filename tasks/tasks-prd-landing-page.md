@@ -54,10 +54,3 @@
   - [x] 4.3 Ensure all interactive elements like buttons and links have clear hover and focus states as defined in the UI design.
   - [x] 4.4 Make the entire landing page fully responsive for tablet and mobile devices.
 
-- [ ] 5.0 Finalization, Analytics, and Deployment
-  - [ ] 5.1 Add the Vercel Analytics component to `src/app/layout.tsx`.
-  - [ ] 5.2 Add tracking events to the main "Add to Chrome" buttons to measure CTR.
-  - [ ] 5.3 Review the entire page to ensure it matches all requirements in the PRD.
-  - [ ] 5.4 Perform a final round of testing for responsiveness, browser compatibility, and interactive elements.
-  - [ ] 5.5 Create a production build using `npm run build`.
-  - [ ] 5.6 Deploy the application to Vercel. 

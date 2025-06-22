@@ -24,18 +24,18 @@
   - [x] 1.2 Install Radix UI for the accordion component (`npm install @radix-ui/react-accordion`).
   - [x] 1.3 Create the new `src/components/sections/header.tsx` file for the navigation bar.
 
-- [ ] 2.0 Global Styling & Animation Foundation
+- [x] 2.0 Global Styling & Animation Foundation
   - [x] 2.1 In `tailwind.config.ts`, add new keyframes for glow and subtle floating animations.
   - [x] 2.2 In `globals.css`, set the base `background` color to a dark shade to match the reference (e.g., `oklch(0.1 0.05 250)`).
   - [x] 2.3 Refactor the base `Card` component (`src/components/ui/card.tsx`) to include default styles for the glassmorphism effect (e.g., `backdrop-blur-sm border bg-white/5`).
   - [x] 2.4 Create a new `ShineBorder` component in `src/components/ui/` based on Aceternity UI patterns for use on cards and buttons.
 
-- [ ] 3.0 Header and Hero Section Overhaul
-  - [ ] 3.1 Implement the `Header` component with the logo, navigation links, and a CTA button, making it float and have a semi-transparent background on scroll.
-  - [ ] 3.2 Update `src/app/page.tsx` to include the new `Header` component.
-  - [ ] 3.3 Refactor the `Hero` section to use the two-column layout.
-  - [ ] 3.4 Add the background radial glow effect to the `Hero` section.
-  - [ ] 3.5 Implement the enhanced CTA button with social proof text below it.
+- [x] 3.0 Header and Hero Section Overhaul
+  - [x] 3.1 Implement the `Header` component with the logo, navigation links, and a CTA button, making it float and have a semi-transparent background on scroll.
+  - [x] 3.2 Update `src/app/page.tsx` to include the new `Header` component.
+  - [x] 3.3 Refactor the `Hero` section to use the two-column layout.
+  - [x] 3.4 Add the background radial glow effect to the `Hero` section.
+  - [x] 3.5 Implement the enhanced CTA button with social proof text below it.
 
 - [ ] 4.0 Interactive Content Sections Refactor
   - [ ] 4.1 Refactor the `Features` and `Benefits` sections to use the updated glassmorphism `Card` component.

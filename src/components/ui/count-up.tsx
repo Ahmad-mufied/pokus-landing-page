@@ -9,51 +9,37 @@ const CountUp = ({
   duration = 1.5,
   decimals = 0,
   className,
+  startAnimation = false,
 }: {
   to: number;
   from?: number;
   duration?: number;
   decimals?: number;
   className?: string;
+  startAnimation?: boolean;
 }) => {
   const [value, setValue] = useState(from);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inViewRef = useRef(false);
+  const controlsRef = useRef<any>(null);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !inViewRef.current) {
-          inViewRef.current = true; // Mark as in view so it only runs once
-          const controls = animate(from, to, {
-            duration,
-            onUpdate(latest) {
-              setValue(latest);
-            },
-          });
-          return () => controls.stop();
-        }
-      },
-      {
-        threshold: 0.1,
+    if (startAnimation) {
+      if (controlsRef.current) {
+        controlsRef.current.stop();
       }
-    );
+      controlsRef.current = animate(from, to, {
+        duration,
+        onUpdate(latest) {
+          setValue(latest);
+        },
+      });
+    }
+  }, [startAnimation, from, to, duration]);
 
-    observer.observe(element);
+  useEffect(() => {
+    return () => controlsRef.current?.stop();
+  }, []);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [from, to, duration]);
-
-  return (
-    <span ref={ref} className={className}>
-      {value.toFixed(decimals)}
-    </span>
-  );
+  return <span className={className}>{value.toFixed(decimals)}</span>;
 };
 
 export default CountUp; 

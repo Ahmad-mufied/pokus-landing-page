@@ -42,7 +42,7 @@ const features: FeatureProps[] = [
 
 const Benefits = () => {
   return (
-    <section id="benefits" className="py-16 md:py-24 lg:py-32 bg-muted/50">
+    <section id="benefits" className="py-12 md:py-20 bg-muted/50">
       <div className="container mx-auto px-4 space-y-8">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">

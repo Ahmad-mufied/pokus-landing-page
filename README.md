@@ -10,7 +10,6 @@ A modern, interactive landing page built with Next.js and Tailwind CSS.
   - [Running the Development Server](#running-the-development-server)
 - [Running Tests](#running-tests)
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Deployment](#deployment)
 
 ## Getting Started
@@ -78,48 +77,6 @@ This project is built with a modern web development stack:
 *   **Linting**: [ESLint](https://eslint.org/) - For identifying and reporting on patterns in JavaScript/TypeScript.
 *   **Package Manager**: [npm](https://www.npmjs.com/) (Node Package Manager)
 *   **Development Server**: Next.js with [Turbopack](https://turbo.build/pack) for optimized development performance.
-
-## Project Structure
-
-The project follows a standard Next.js application structure:
-
-```
-.
-├── .next/             # Next.js build output (automatically generated)
-├── .vscode/           # VSCode editor settings (if any)
-├── docs/              # Project documentation (e.g., blueprints)
-├── node_modules/      # Project dependencies (managed by npm/yarn)
-├── public/            # Static assets (images, fonts, etc.) accessible directly via URL
-├── src/
-│   ├── app/           # Core application files, including pages and layouts (Next.js App Router)
-│   │   ├── page.tsx   # Main landing page component
-│   │   └── layout.tsx # Root layout for the application
-│   ├── components/    # Reusable React components
-│   │   ├── sections/  # Components representing different sections of the landing page (Hero, Features, etc.)
-│   │   └── ui/        # General-purpose UI components (buttons, cards, etc.)
-│   ├── lib/           # Utility functions and shared libraries
-│   │   └── utils.ts   # General utility functions
-│   └── styles/        # Global styles (though most styling is done via Tailwind CSS)
-├── .gitignore         # Specifies intentionally untracked files that Git should ignore
-├── .nvmrc             # Specifies the recommended Node.js version
-├── jest.config.mjs    # Jest test runner configuration
-├── next.config.ts     # Next.js configuration file
-├── package-lock.json  # Records exact versions of dependencies
-├── package.json       # Project metadata and dependencies
-├── postcss.config.mjs # PostCSS configuration (used by Tailwind CSS)
-├── tailwind.config.ts # Tailwind CSS configuration
-└── tsconfig.json      # TypeScript compiler configuration
-```
-
-Key directories:
-
-*   `src/app/`: Contains the main page (`page.tsx`) and layout (`layout.tsx`) for the application, following the Next.js App Router conventions.
-*   `src/components/`: Houses all React components.
-    *   `src/components/sections/`: Contains larger components that make up distinct sections of the landing page (e.g., Hero, Features, Testimonials).
-    *   `src/components/ui/`: Contains smaller, reusable UI elements like buttons, cards, modals, etc.
-*   `src/lib/`: For shared utility functions or libraries.
-*   `public/`: Static assets like images and SVGs are served from here.
-*   `docs/`: Contains project-related documentation, such as blueprints or design documents.
 
 ## Deployment
 

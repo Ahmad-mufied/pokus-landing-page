@@ -6,6 +6,7 @@ import CountUp from "../ui/count-up";
 import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import { useState } from "react";
 import { Modal } from "../ui/modal";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
@@ -76,7 +77,7 @@ export function Hero() {
               className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-6 py-3 lg:px-8 lg:py-4"
             >
               <span className="text-sm md:text-base lg:text-lg font-semibold">
-                Get Started - It's Free
+                Get Started - It&apos;s Free
               </span>
             </HoverBorderGradient>
             <div className="mt-4 flex flex-col sm:flex-row items-center gap-4 text-sm md:text-base text-muted-foreground">
@@ -112,12 +113,13 @@ export function Hero() {
               onClick={() => setModalOpen(true)}
               className="group w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700"
             >
-              <img
+              <Image
                 src="https://assets.aceternity.com/pro/aceternity-landing.webp"
                 alt="Landing page preview"
                 className="aspect-[16/9] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 height={1000}
                 width={1000}
+                priority
               />
             </button>
           </div>
@@ -125,10 +127,12 @@ export function Hero() {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <img
+        <Image
           src="https://assets.aceternity.com/pro/aceternity-landing.webp"
           alt="Landing page preview"
           className="max-h-[90vh] w-auto rounded-lg object-contain"
+          height={1080}
+          width={1920}
         />
       </Modal>
     </>

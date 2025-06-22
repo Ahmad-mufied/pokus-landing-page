@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -20,7 +20,7 @@ const TrueFocus = ({
   pauseBetweenAnimations?: number;
   className?: string;
 }) => {
-  const words = sentence.split(" ");
+  const words = useMemo(() => sentence.split(" "), [sentence]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +54,6 @@ const TrueFocus = ({
   }, [
     animationCompleted,
     words,
-    words.length,
     animationDuration,
     pauseBetweenAnimations,
   ]);

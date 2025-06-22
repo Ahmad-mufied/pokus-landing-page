@@ -53,6 +53,7 @@ const TrueFocus = ({
     };
   }, [
     animationCompleted,
+    words,
     words.length,
     animationDuration,
     pauseBetweenAnimations,

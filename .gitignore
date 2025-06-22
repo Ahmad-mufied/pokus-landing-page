@@ -350,7 +350,7 @@ sketch
 # *.iml
 # *.ipr
 
-# CMake
+/docs/design-references/**
 
 # Mongo Explorer plugin
 

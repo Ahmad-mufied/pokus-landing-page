@@ -71,10 +71,24 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "shine": {
+          "from": {
+            "backgroundPosition": "200% 0",
+          },
+          "to": {
+            "backgroundPosition": "-200% 0",
+          },
+        },
+        "float": {
+          "0%, 100%": { "transform": "translateY(0)" },
+          "50%": { "transform": "translateY(-5px)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "shine": "shine 4s linear infinite",
+        "float": "float 4s ease-in-out infinite",
       },
     },
   },

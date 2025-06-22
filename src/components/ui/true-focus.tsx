@@ -53,7 +53,11 @@ const TrueFocus = ({
     };
   }, [
     animationCompleted,
+<<<<<<< Updated upstream
+    words.length,
+=======
     words,
+>>>>>>> Stashed changes
     animationDuration,
     pauseBetweenAnimations,
   ]);

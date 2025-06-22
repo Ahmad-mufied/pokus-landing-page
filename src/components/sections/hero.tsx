@@ -1,109 +1,138 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { motion } from "motion/react";
+import TrueFocus from "../ui/true-focus";
+import CountUp from "../ui/count-up";
+import { HoverBorderGradient } from "../ui/hover-border-gradient";
+import { useState } from "react";
+import { Modal } from "../ui/modal";
 
-const Hero = () => {
-  const handleAddToChrome = () => {
-    // In a real implementation, this would link to the actual Chrome Web Store page
-    window.open('https://chrome.google.com/webstore', '_blank');
-  };
-
+const Navbar = () => {
   return (
-    <section className="min-h-screen flex items-center py-12 md:py-16 lg:py-20">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Content Column */}
-          <div className="text-center lg:text-left space-y-6 lg:space-y-8 order-2 lg:order-1">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="block">Regain Your Focus,</span>
-                <span className="block">
-                  <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 text-transparent bg-clip-text">
-                    Master Your Time
-                  </span>
-                </span>
-              </h1>
-              
-              <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                The all-in-one Chromium extension to block distractions, manage your time with the Pomodoro technique, and create a focused work environment.
-              </p>
-            </div>
-
-            {/* CTA Section */}
-            <div className="space-y-4">
-              <Button 
-                className="w-full sm:w-auto text-lg px-8 py-4 h-auto font-semibold transition-all duration-300 hover:scale-105 focus:scale-105 active:scale-95" 
-                size="lg"
-                onClick={handleAddToChrome}
-              >
-                Add to Chrome for Free
-              </Button>
-              
-              <div className="flex items-center justify-center lg:justify-start space-x-4 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-1">
-                  <span className="text-yellow-500">★★★★★</span>
-                  <span>4.8/5</span>
-                </div>
-                <div className="w-1 h-1 bg-muted-foreground rounded-full"></div>
-                <span>1,000+ users</span>
-                <div className="w-1 h-1 bg-muted-foreground rounded-full"></div>
-                <span>Free forever</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Visual Column */}
-          <div className="order-1 lg:order-2">
-            <div className="relative">
-              {/* Main Visual Container */}
-              <div className="aspect-square lg:aspect-auto lg:h-96 xl:h-[500px] rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-6 lg:p-8 flex items-center justify-center backdrop-blur-sm">
-                <div className="text-center space-y-4">
-                  {/* Extension Icon Placeholder */}
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 mx-auto bg-primary/20 rounded-2xl flex items-center justify-center">
-                    <svg className="w-10 h-10 lg:w-12 lg:h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="text-xl lg:text-2xl font-bold text-foreground">
-                      Pokus Extension
-                    </h3>
-                    <p className="text-sm lg:text-base text-muted-foreground max-w-xs mx-auto">
-                      Visual demonstration and UI preview will be shown here
-                    </p>
-                  </div>
-
-                  {/* Feature Icons */}
-                  <div className="flex justify-center space-x-4 pt-4">
-                    <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L5.636 5.636" />
-                      </svg>
-                    </div>
-                    <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 106 0 3 3 0 00-6 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Decorative Elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/20 rounded-full blur-sm"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary/30 rounded-full blur-sm"></div>
-            </div>
-          </div>
-        </div>
+    <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
+      <div className="flex items-center gap-2">
+        <div className="size-7 rounded-full bg-gradient-to-br from-violet-500 to-pink-500" />
+        <h1 className="text-base font-bold md:text-2xl">Pokus</h1>
       </div>
-    </section>
+    </nav>
   );
 };
+
+export function Hero() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  return (
+    <>
+      <div className="relative mx-auto mb-10 flex w-full max-w-screen-2xl flex-col items-center justify-center">
+        <Navbar />
+        <div className="absolute inset-y-0 left-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
+          <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
+        </div>
+        <div className="absolute inset-y-0 right-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
+          <div className="absolute h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-px w-full bg-neutral-200/80 dark:bg-neutral-800/80">
+          <div className="absolute mx-auto h-px w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+        </div>
+        <div className="px-4 py-10 md:py-20 lg:py-24">
+          <TrueFocus
+            sentence="Stop Procrastinating, Start Focusing"
+            className="text-4xl font-bold md:text-6xl lg:text-8xl text-slate-700 dark:text-slate-300"
+            borderColor="rgb(107, 114, 128)"
+            glowColor="rgb(107, 114, 128)"
+          />
+          <motion.p
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.3,
+              delay: 0.8,
+            }}
+            className="relative z-10 mx-auto max-w-2xl lg:max-w-4xl pt-8 lg:pt-12 pb-2 text-center text-base md:text-lg lg:text-xl font-light tracking-wide text-neutral-600 dark:text-neutral-400"
+          >
+            Pokus is a powerful Chrome extension that helps you stay on track,
+            block distractions, and get more done with the Pomodoro Technique.
+          </motion.p>
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.3,
+              delay: 1,
+            }}
+            className="relative z-10 mt-8 flex flex-col items-center justify-center gap-4"
+          >
+            <HoverBorderGradient
+              containerClassName="rounded-full"
+              as="button"
+              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-6 py-3 lg:px-8 lg:py-4"
+            >
+              <span className="text-sm md:text-base lg:text-lg font-semibold">
+                Get Started - It's Free
+              </span>
+            </HoverBorderGradient>
+            <div className="mt-4 flex flex-col sm:flex-row items-center gap-4 text-sm md:text-base text-muted-foreground">
+              <div className="flex items-baseline gap-1.5">
+                <CountUp to={1000} duration={3} />
+                <span>+ happy users</span>
+              </div>
+              <span className="h-4 w-px bg-muted-foreground/50 hidden sm:block" />
+              <div className="flex items-baseline gap-1.5">
+                <CountUp to={4.8} decimals={1} duration={3} />
+                <span>/5 stars</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.3,
+            delay: 1.2,
+          }}
+          className="relative z-10 mb-12 lg:mt-4 flex w-full justify-center px-4"
+        >
+          <div className="relative w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-7xl rounded-3xl border border-neutral-200 bg-neutral-100 p-2 md:p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="group w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700"
+            >
+              <img
+                src="https://assets.aceternity.com/pro/aceternity-landing.webp"
+                alt="Landing page preview"
+                className="aspect-[16/9] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                height={1000}
+                width={1000}
+              />
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <img
+          src="https://assets.aceternity.com/pro/aceternity-landing.webp"
+          alt="Landing page preview"
+          className="max-h-[90vh] w-auto rounded-lg object-contain"
+        />
+      </Modal>
+    </>
+  );
+}
 
 export default Hero; 

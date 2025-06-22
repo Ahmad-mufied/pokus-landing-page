@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Landing Page
+
+A modern, interactive landing page built with Next.js and Tailwind CSS.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Development Server](#running-the-development-server)
+- [Running Tests](#running-tests)
+- [Tech Stack](#tech-stack)
+- [Deployment](#deployment)
 
 ## Getting Started
 
-First, run the development server:
+Instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+*   **Node.js**: Version `20.17.0` is recommended (as specified in the `.nvmrc` file). You can use a tool like [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager) to manage Node.js versions.
+*   **npm** (Node Package Manager) or **yarn**: These come bundled with Node.js. This project uses `npm` according to the `package-lock.json`.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+    **(Remember to replace `<repository-url>` with the actual URL of this repository and `<repository-directory>` with the name you want for the local folder, typically the repository name).**
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+    (If you prefer using yarn, and a `yarn.lock` file exists or you initialize it, you can use `yarn install`)
+
+### Running the Development Server
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will typically start the server on `http://localhost:3000`. Open this URL in your web browser to see the application.
+The development server uses Next.js with Turbopack for fast refresh and optimized performance.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses [Jest](https://jestjs.io/) for testing. To run the automated tests, execute the following command in your terminal:
 
-## Learn More
+```bash
+npm test
+```
 
-To learn more about Next.js, take a look at the following resources:
+This command will run all test files (typically those ending in `.test.ts`, `.spec.ts`, `.test.tsx`, or `.spec.tsx`) and output the results to the console.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is built with a modern web development stack:
 
-## Deploy on Vercel
+*   **Framework**: [Next.js](https://nextjs.org/) (v15.3.4) - A React framework for building server-side rendered and statically generated web applications.
+*   **Language**: [TypeScript](https://www.typescriptlang.org/) - A superset of JavaScript that adds static typing.
+*   **Styling**: [Tailwind CSS](https://tailwindcss.com/) (v4) - A utility-first CSS framework for rapid UI development.
+    *   Includes `tailwindcss-animate` for animations.
+*   **UI Components**:
+    *   [Radix UI](https://www.radix-ui.com/) (specifically `@radix-ui/react-accordion`) - For accessible and unstyled UI primitives.
+    *   Custom components in `src/components/ui/`.
+*   **Animation**:
+    *   [Framer Motion](https://www.framer.com/motion/) - A production-ready motion library for React.
+*   **Testing**: [Jest](https://jestjs.io/) - A JavaScript testing framework.
+    *   With [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for testing React components.
+*   **Linting**: [ESLint](https://eslint.org/) - For identifying and reporting on patterns in JavaScript/TypeScript.
+*   **Package Manager**: [npm](https://www.npmjs.com/) (Node Package Manager)
+*   **Development Server**: Next.js with [Turbopack](https://turbo.build/pack) for optimized development performance.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is configured for deployment on [Netlify](https://www.netlify.com/).
+
+The `netlify.toml` file in the root of the project contains the necessary build settings:
+```toml
+[build]
+  command = "next build"  # Specifies the build command
+  publish = ".next"       # Specifies the directory to publish
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs" # Essential plugin for Next.js sites on Netlify
+```
+
+To deploy this project to Netlify:
+
+1.  **Connect your Git repository to Netlify**:
+    *   Push your project to a GitHub, GitLab, or Bitbucket repository.
+    *   Go to your Netlify dashboard and click "Add new site" -> "Import an existing project".
+    *   Choose your Git provider and select the repository.
+
+2.  **Configure build settings (usually auto-detected)**:
+    *   Netlify should automatically detect the settings from `netlify.toml`.
+    *   The **Build command** should be `next build`.
+    *   The **Publish directory** should be `.next`.
+    *   The `@netlify/plugin-nextjs` will be installed automatically if listed in `netlify.toml`, or you might need to add it via the Netlify UI or by including it in your `package.json`'s dependencies.
+
+3.  **Deploy**:
+    *   Click "Deploy site". Netlify will then build and deploy your project.
+
+Any pushes to the connected branch (e.g., `main` or `master`) will trigger automatic redeployments. You can also set up deploy previews for pull requests.

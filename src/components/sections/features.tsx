@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import BlurText from "../ui/blur-text";
 
 const colorClasses = {
   blue: {
@@ -214,13 +215,19 @@ export default function Features() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-            Pokus Features
-        </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Everything you need to stay focused and productive
-        </p>
-      </div>
+          <BlurText
+            text="Pokus Features"
+            className="text-4xl md:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent"
+            startAnimation={isInView}
+            delay={0}
+          />
+          <BlurText
+            text="Everything you need to stay focused and productive"
+            className="text-xl text-slate-300 max-w-2xl mx-auto"
+            startAnimation={isInView}
+            delay={0.2}
+          />
+        </div>
 
         <motion.div
           ref={ref}

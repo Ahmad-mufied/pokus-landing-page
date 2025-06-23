@@ -67,17 +67,17 @@ const Faq = () => {
 
         {/* Accordion Section */}
         <div className="bg-[#18181b]/80 backdrop-blur-lg rounded-2xl border border-[#232334] shadow-2xl p-8 min-h-[300px]">
-          <Accordion
+        <Accordion
             selectionMode="single"
-            variant="bordered"
+          variant="bordered"
             className="w-full"
             motionProps={motionProps}
             defaultSelectedKeys={["0"]}
-          >
-            {faqData.map((item, index) => (
-              <AccordionItem
-                key={index.toString()}
-                aria-label={item.question}
+        >
+          {faqData.map((item, index) => (
+            <AccordionItem
+              key={index.toString()}
+              aria-label={item.question}
                 title={
                   <div className="flex items-center w-full pt-3 gap-2 group cursor-pointer">
                     <span className="text-lg font-semibold text-white text-left">
@@ -105,9 +105,9 @@ const Faq = () => {
                     {item.answer}
                   </p>
                 </div>
-              </AccordionItem>
-            ))}
-          </Accordion>
+            </AccordionItem>
+          ))}
+        </Accordion>
         </div>
       </div>
     </section>

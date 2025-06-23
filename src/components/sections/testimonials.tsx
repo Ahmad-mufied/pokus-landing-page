@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
+import SectionHeader from '../ui/section-header';
 
 const Testimonials = () => {
   const testimonials = [
@@ -58,14 +59,10 @@ const Testimonials = () => {
     <section className="py-12 md:py-20 bg-secondary/30">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            What Our Users Say
-          </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Join thousands of satisfied users who have transformed their productivity with Pokus
-          </p>
-        </div>
+        <SectionHeader
+          title="What Our Users Say"
+          subtitle="Join thousands of satisfied users who have transformed their productivity with Pokus"
+        />
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">

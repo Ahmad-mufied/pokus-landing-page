@@ -227,7 +227,7 @@ export default function Features() {
             startAnimation={isInView}
             delay={0.2}
           />
-        </div>
+      </div>
 
         <motion.div
           ref={ref}

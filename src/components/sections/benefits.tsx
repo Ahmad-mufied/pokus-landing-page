@@ -42,7 +42,7 @@ const features: FeatureProps[] = [
 
 const Benefits = () => {
   return (
-    <section id="benefits" className="py-16 md:py-24 lg:py-32 bg-muted/50">
+    <section id="benefits" className="py-12 md:py-20 bg-muted/50">
       <div className="container mx-auto px-4 space-y-8">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -61,22 +61,22 @@ const Benefits = () => {
             <Card 
               key={title}
               className="group h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 hover:border-primary/50 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
-              tabIndex={0}
-            >
-              <CardHeader className="text-center pb-3">
+                tabIndex={0}
+              >
+                <CardHeader className="text-center pb-3">
                 <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 mb-4">
-                  {icon}
+                    {icon}
                 </div>
-                <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-300 flex items-center justify-center gap-2">
-                  {title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center pt-0">
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                  {description}
-                </p>
-              </CardContent>
-            </Card>
+                  <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-300 flex items-center justify-center gap-2">
+                    {title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center pt-0">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    {description}
+                  </p>
+                </CardContent>
+              </Card>
           ))}
         </div>
       </div>

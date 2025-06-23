@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const TrueFocus = ({
+export const TrueFocus = ({
   sentence = "True Focus",
   blurAmount = 5,
   borderColor = "green",
@@ -11,6 +11,8 @@ const TrueFocus = ({
   animationDuration = 0.5,
   pauseBetweenAnimations = 0.3,
   className,
+  focusOnWords,
+  onAnimationComplete,
 }: {
   sentence?: string;
   blurAmount?: number;
@@ -19,6 +21,8 @@ const TrueFocus = ({
   animationDuration?: number;
   pauseBetweenAnimations?: number;
   className?: string;
+  focusOnWords?: string[];
+  onAnimationComplete?: () => void;
 }) => {
   const words = useMemo(() => sentence.split(" "), [sentence]);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -30,6 +34,7 @@ const TrueFocus = ({
     y: 0,
     width: 0,
     height: 0,
+    opacity: 0,
   });
 
   useEffect(() => {
@@ -43,6 +48,7 @@ const TrueFocus = ({
           setTimeout(() => {
             setAnimationCompleted(true);
             setCurrentIndex(-1);
+            onAnimationComplete?.();
           }, (animationDuration + pauseBetweenAnimations) * 1000);
         }
       }, index * (animationDuration + pauseBetweenAnimations) * 1000);
@@ -56,27 +62,92 @@ const TrueFocus = ({
     words,
     animationDuration,
     pauseBetweenAnimations,
+    onAnimationComplete,
   ]);
 
-  useEffect(() => {
-    if (currentIndex === -1 || !wordRefs.current[currentIndex]) {
-      // Optionally hide or reset the focus rectangle when no word is active
-      setFocusRect({ x: 0, y: 0, width: 0, height: 0 });
+  const updateFocusRect = useCallback(() => {
+    const parentRect = containerRef.current?.getBoundingClientRect();
+    if (!parentRect) {
+      setFocusRect((prev) => ({ ...prev, opacity: 0 }));
       return;
     }
 
-    const parentRect = containerRef.current?.getBoundingClientRect();
+    // Hover or animation is running
+    if (currentIndex !== -1) {
     const activeRect = wordRefs.current[currentIndex]?.getBoundingClientRect();
-
-    if (parentRect && activeRect) {
+      if (activeRect) {
       setFocusRect({
         x: activeRect.left - parentRect.left,
         y: activeRect.top - parentRect.top,
         width: activeRect.width,
         height: activeRect.height,
+          opacity: 1,
       });
     }
-  }, [currentIndex]);
+      return;
+    }
+
+    // Animation complete, no hover, permanent focus
+    if (
+      animationCompleted &&
+      currentIndex === -1 &&
+      focusOnWords &&
+      focusOnWords.length > 0
+    ) {
+      const focusIndices: number[] = [];
+      words.forEach((word, index) => {
+        if (focusOnWords.includes(word.replace(/[,\.!?]/g, ""))) {
+          focusIndices.push(index);
+        }
+      });
+
+      if (focusIndices.length > 0) {
+        focusIndices.sort((a, b) => a - b);
+        const firstWordRect =
+          wordRefs.current[focusIndices[0]]?.getBoundingClientRect();
+        const lastWordRect =
+          wordRefs.current[
+            focusIndices[focusIndices.length - 1]
+          ]?.getBoundingClientRect();
+
+        if (firstWordRect && lastWordRect) {
+          const areOnSameLine =
+            Math.abs(firstWordRect.top - lastWordRect.top) <
+            firstWordRect.height / 2;
+
+          if (areOnSameLine) {
+            setFocusRect({
+              x: firstWordRect.left - parentRect.left,
+              y: firstWordRect.top - parentRect.top,
+              width: lastWordRect.right - firstWordRect.left,
+              height: firstWordRect.height,
+              opacity: 1,
+            });
+          } else {
+            // Words wrapped to different lines, hide the highlight
+            setFocusRect((prev) => ({ ...prev, opacity: 0 }));
+          }
+          return;
+        }
+      }
+    }
+
+    // Fallback to hide
+    setFocusRect((prev) => ({ ...prev, opacity: 0 }));
+  }, [animationCompleted, currentIndex, words, focusOnWords]);
+
+  // Recalculate on state change
+  useEffect(() => {
+    updateFocusRect();
+  }, [updateFocusRect]);
+
+  // Recalculate on resize
+  useEffect(() => {
+    window.addEventListener("resize", updateFocusRect);
+    return () => {
+      window.removeEventListener("resize", updateFocusRect);
+    };
+  }, [updateFocusRect]);
 
   const handleMouseEnter = (index: number) => {
     if (animationCompleted) {
@@ -99,7 +170,15 @@ const TrueFocus = ({
       ref={containerRef}
     >
       {words.map((word, index) => {
-        const isActive = index === currentIndex;
+        if (word === "<br/>") {
+          return <div key={`br-${index}`} className="w-full basis-full h-0" />;
+        }
+        const isPermanentlyFocused =
+          animationCompleted &&
+          currentIndex === -1 &&
+          focusOnWords?.includes(word.replace(/[,\.!?]/g, ""));
+
+        const isActive = index === currentIndex || isPermanentlyFocused;
         return (
           <span
             key={index}
@@ -133,7 +212,7 @@ const TrueFocus = ({
           y: focusRect.y,
           width: focusRect.width,
           height: focusRect.height,
-          opacity: currentIndex !== -1 ? 1 : 0,
+          opacity: focusRect.opacity,
         }}
         transition={{
           duration: animationDuration,
@@ -177,5 +256,3 @@ const TrueFocus = ({
     </div>
   );
 };
-
-export default TrueFocus; 

@@ -1,10 +1,8 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Clock, Play, Bell, TrendingUp, Shield, Music } from 'lucide-react';
-import BlurText from '../ui/blur-text';
-import { useInView } from 'framer-motion';
 import SectionHeader from '../ui/section-header';
 
 const steps = [
@@ -120,7 +118,6 @@ const LiquidGlassGuide = () => {
 
   // For animated title/subtitle
   const titleRef = useRef(null);
-  const isInView = useInView(titleRef, { once: true, amount: 0.2 });
 
   // Scroll-based focus effect (per card)
   useEffect(() => {

@@ -94,4 +94,24 @@ const Faq = () => {
                 indicator={({ isOpen }) => (
                   <div className="flex items-center justify-end w-full">
                     <ChevronRight
-                      className={`transition-transform duration-300 ${isOpen ? "rotate-90" : ""} text-white/70 group-hover:text-primary`
+                      className={`transition-transform duration-300 ${isOpen ? "rotate-90" : ""} text-white/70 group-hover:text-primary`}
+                      size={20}
+                    />
+                  </div>
+                )}
+              >
+                <div className="pr-8 pb-6">
+                  <p className="text-base text-muted-foreground leading-relaxed">
+                    {item.answer}
+                  </p>
+                </div>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Faq;

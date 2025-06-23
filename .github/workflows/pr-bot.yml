@@ -90,7 +90,9 @@ jobs:
           PR_DESCRIPTION: ${{ steps.generate_description.outputs.result }}
         with:
           script: |
-            const description = process.env['PR_DESCRIPTION'] || '';
+            // Replace double-escaped newlines with real newlines for proper Markdown rendering
+            let description = process.env['PR_DESCRIPTION'] || '';
+            description = description.replace(/\\n/g, '\n');
             await github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,

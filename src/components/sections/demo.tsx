@@ -5,6 +5,7 @@ import { motion, useScroll } from 'framer-motion';
 import { Clock, Play, Bell, TrendingUp, Shield, Music } from 'lucide-react';
 import BlurText from '../ui/blur-text';
 import { useInView } from 'framer-motion';
+import SectionHeader from '../ui/section-header';
 
 const steps = [
   {
@@ -160,18 +161,10 @@ const LiquidGlassGuide = () => {
     <section className="py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-20" ref={titleRef}>
-          <BlurText
-            text="How it works"
-            className="text-4xl font-bold text-gray-900 dark:text-white mb-4"
-            startAnimation={isInView}
-            delay={0}
-          />
-          <BlurText
-            text="Get started with our simple workflow and boost your productivity today."
-            className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-            startAnimation={isInView}
-            delay={0.2}
+        <div ref={titleRef}>
+          <SectionHeader
+            title="How it works"
+            subtitle="Get started with our simple workflow and boost your productivity today."
           />
         </div>
         {/* Main Steps */}

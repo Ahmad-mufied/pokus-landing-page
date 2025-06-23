@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import SectionHeader from "../ui/section-header";
 
 const teamMembers = [
   {
@@ -61,31 +62,16 @@ const Team = () => {
       <div className="absolute top-40 right-10 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
-          className="text-center mb-12 md:mb-16"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Meet Our Team
-          </motion.h2>
-          <motion.p 
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            The passionate individuals behind Pokus, dedicated to helping you achieve your productivity goals with innovative solutions and cutting-edge technology.
-          </motion.p>
+          <SectionHeader
+            title="Meet Our Team"
+            subtitle="The passionate individuals behind Pokus, dedicated to helping you achieve your productivity goals with innovative solutions and cutting-edge technology."
+          />
         </motion.div>
 
         <motion.div 

@@ -1,131 +1,290 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 
-const Testimonials = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Alex Chen",
-      role: "Software Developer",
-      content: "Pokus has completely transformed my work-from-home productivity. The site blocker keeps me focused during deep coding sessions, and the Pomodoro timer helps me maintain a healthy work rhythm.",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "Sarah Johnson",
-      role: "Graduate Student",
-      content: "As a PhD student, I struggle with distractions while writing my dissertation. Pokus's ambient sounds and website blocking have been game-changers for my focus and concentration.",
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: "Michael Rodriguez",
-      role: "Freelance Designer",
-      content: "The combination of focus tools in Pokus is perfect for creative work. I love how I can customize my environment with different ambient sounds while blocking social media distractions.",
-      rating: 5,
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      role: "Marketing Manager",
-      content: "Pokus helped me overcome my procrastination habits. The Pomodoro timer with break reminders has improved my productivity by at least 40%. Highly recommended!",
-      rating: 5,
-    },
-    {
-      id: 5,
-      name: "David Kim",
-      role: "Data Analyst",
-      content: "Simple, effective, and exactly what I needed. Pokus doesn't overwhelm you with features – it just works. The ambient sounds library is surprisingly comprehensive and relaxing.",
-      rating: 5,
-    },
-  ];
+interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+  avatar?: string;
+}
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, index) => (
-      <svg
-        key={index}
-        className={`w-4 h-4 ${
-          index < rating ? 'text-yellow-400' : 'text-gray-300'
-        }`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ));
+const testimonials: Testimonial[] = [
+  {
+    name: "Alex Chen",
+    role: "Software Developer",
+    content: "Pokus has completely transformed my work-from-home productivity. The site blocker keeps me focused during deep coding sessions, and the Pomodoro timer helps me maintain a healthy work rhythm.",
+    avatar: "AC"
+  },
+  {
+    name: "Sarah Johnson", 
+    role: "Graduate Student",
+    content: "As a PhD student, I struggle with distractions while writing my dissertation. Pokus's ambient sounds and website blocking have been game-changers for my focus and concentration.",
+    avatar: "SJ"
+  },
+  {
+    name: "Michael Rodriguez",
+    role: "Freelance Designer", 
+    content: "The combination of focus tools in Pokus is perfect for creative work. I love how I can customize my environment with different ambient sounds while blocking social media distractions.",
+    avatar: "MR"
+  },
+  {
+    name: "Emily Davis",
+    role: "Marketing Manager",
+    content: "Pokus helped me overcome my procrastination habits. The Pomodoro timer with break reminders has improved my productivity by at least 40%. Highly recommended!",
+    avatar: "ED"
+  },
+  {
+    name: "David Kim",
+    role: "Data Analyst", 
+    content: "Simple, effective, and exactly what I needed. Pokus doesn't overwhelm you with features – it just works. The ambient sounds library is surprisingly comprehensive and relaxing.",
+    avatar: "DK"
+  },
+  {
+    name: "Lisa Wang",
+    role: "UX Designer",
+    content: "Love the minimalist interface and how intuitive everything is.",
+    avatar: "LW"
+  },
+  {
+    name: "James Miller",
+    role: "Content Writer",
+    content: "Been using Pokus for 6 months now. Can't imagine working without it. The focus sessions have transformed my writing routine completely.",
+    avatar: "JM"
+  },
+  {
+    name: "Anna Foster",
+    role: "Project Manager",
+    content: "Finally found a productivity tool that actually works for me.",
+    avatar: "AF"
+  }
+];
+
+const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
+  <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">{title}</h2>
+    <p className="text-sm sm:text-base lg:text-lg text-white/70 max-w-xs sm:max-w-md lg:max-w-2xl mx-auto px-4">{subtitle}</p>
+  </div>
+);
+
+const TestimonialCard = ({ name, role, content, avatar }: Testimonial) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, ease: 'easeOut' }}
+    viewport={{ once: true }}
+    className="break-inside-avoid mb-3 sm:mb-4 flex-shrink-0"
+  >
+    <Card className="bg-white/5 border border-white/10 backdrop-blur-md text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/10 max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
+            {avatar}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold text-white text-xs sm:text-sm truncate">{name}</p>
+            <p className="text-white/60 text-xs">{role}</p>
+          </div>
+        </div>
+        <blockquote className="text-xs sm:text-sm leading-relaxed text-white/90">
+          "{content}"
+        </blockquote>
+      </CardContent>
+    </Card>
+  </motion.div>
+);
+
+const InfiniteScrollColumn = ({ 
+  testimonials, 
+  direction = 'up', 
+  speed = 50, 
+  startOffset = 0,
+  isPaused = false,
+  columnIndex = 0
+}: {
+  testimonials: Testimonial[];
+  direction?: 'up' | 'down';
+  speed?: number;
+  startOffset?: number;
+  isPaused?: boolean;
+  columnIndex?: number;
+}) => {
+  // Buat testimonials yang berbeda untuk setiap kolom
+  const getColumnTestimonials = () => {
+    const shuffled = [...testimonials];
+    // Rotate testimonials berdasarkan column index untuk variasi
+    for (let i = 0; i < columnIndex; i++) {
+      shuffled.push(shuffled.shift()!);
+    }
+    return shuffled;
   };
 
+  const columnTestimonials = getColumnTestimonials();
+  
+  // Gandakan 4x untuk memastikan loop yang benar-benar seamless
+  const infiniteTestimonials = [
+    ...columnTestimonials,
+    ...columnTestimonials,
+    ...columnTestimonials,
+    ...columnTestimonials
+  ];
+
+  // Estimasi tinggi per testimonial (termasuk margin)
+  const estimatedCardHeight = 180; // Sesuaikan dengan tinggi card actual
+  const totalHeight = columnTestimonials.length * estimatedCardHeight;
+
   return (
-    <section className="py-12 md:py-20 bg-secondary/30">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            What Our Users Say
-          </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Join thousands of satisfied users who have transformed their productivity with Pokus
-          </p>
+    <div className="relative h-full overflow-hidden">
+      <motion.div
+        className="flex flex-col gap-3 sm:gap-4"
+        initial={{ 
+          y: direction === 'up' ? startOffset : startOffset 
+        }}
+        animate={!isPaused ? {
+          y: direction === 'up' 
+            ? [startOffset, startOffset - totalHeight]
+            : [startOffset, startOffset + totalHeight]
+        } : {
+          y: startOffset
+        }}
+        transition={{
+          duration: speed,
+          repeat: Infinity,
+          ease: "linear",
+          repeatType: "loop"
+        }}
+      >
+        {infiniteTestimonials.map((testimonial, index) => (
+          <TestimonialCard 
+            key={`${columnIndex}-${direction}-${index}`} 
+            {...testimonial} 
+          />
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+const TestimonialsWall = () => {
+  const [isPaused, setIsPaused] = useState(false);
+
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+
+  return (
+    <section className="py-8 sm:py-10 lg:py-12 relative overflow-hidden">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10 max-h-[600px] sm:max-h-[650px] lg:max-h-[720px] overflow-hidden flex flex-col justify-start">
+        <SectionHeader
+          title="Loved by productive people everywhere"
+          subtitle="See what others are saying about Pokus"
+        />
+
+        {/* Mobile: Single column */}
+        <div 
+          className="block sm:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <InfiniteScrollColumn
+            testimonials={testimonials}
+            direction="up"
+            speed={60}
+            startOffset={0}
+            isPaused={isPaused}
+            columnIndex={0}
+          />
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <Card 
-              key={testimonial.id}
-              className={`bg-card border-border transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-primary/50 ${
-                index === 2 ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
-            >
-              <CardContent className="p-6">
-                {/* Star Rating */}
-                <div className="flex items-center mb-4">
-                  {renderStars(testimonial.rating)}
-                </div>
-
-                {/* Testimonial Content */}
-                <blockquote className="text-foreground/80 mb-4 leading-relaxed">
-                  &ldquo;{testimonial.content}&rdquo;
-                </blockquote>
-
-                {/* Author Info */}
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-primary font-semibold text-sm">
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-foreground/60 text-xs">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Small Tablet: Two columns */}
+        <div 
+          className="hidden sm:block md:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-2 gap-3 h-full">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={60}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={65}
+              startOffset={-100}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+          </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-foreground/70 mb-4">
-            Ready to join our community of focused professionals?
-          </p>
-          <a 
-            href="#" 
-            className="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors duration-200"
-          >
-            Read more testimonials
-            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
+        {/* Medium Tablet: Two columns */}
+        <div 
+          className="hidden md:block lg:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-2 gap-4 h-full max-w-4xl mx-auto">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={70}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={75}
+              startOffset={-150}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+          </div>
+        </div>
+
+        {/* Desktop: Three columns */}
+        <div 
+          className="hidden lg:block h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-3 gap-4 xl:gap-6 h-full max-w-7xl mx-auto">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={80}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={85}
+              startOffset={-100}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={90}
+              startOffset={-200}
+              isPaused={isPaused}
+              columnIndex={2}
+            />
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-export default Testimonials; 
+export default TestimonialsWall;

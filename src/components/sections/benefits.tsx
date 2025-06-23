@@ -61,22 +61,22 @@ const Benefits = () => {
             <Card 
               key={title}
               className="group h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 hover:border-primary/50 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
-              tabIndex={0}
-            >
-              <CardHeader className="text-center pb-3">
+                tabIndex={0}
+              >
+                <CardHeader className="text-center pb-3">
                 <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 mb-4">
-                  {icon}
+                    {icon}
                 </div>
-                <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-300 flex items-center justify-center gap-2">
-                  {title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center pt-0">
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                  {description}
-                </p>
-              </CardContent>
-            </Card>
+                  <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors duration-300 flex items-center justify-center gap-2">
+                    {title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center pt-0">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    {description}
+                  </p>
+                </CardContent>
+              </Card>
           ))}
         </div>
       </div>

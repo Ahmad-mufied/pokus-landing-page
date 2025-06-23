@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate } from "framer-motion";
+import { animate, AnimationPlaybackControls } from "framer-motion";
 
 const CountUp = ({
   to,
@@ -19,7 +19,7 @@ const CountUp = ({
   startAnimation?: boolean;
 }) => {
   const [value, setValue] = useState(from);
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<AnimationPlaybackControls | null>(null);
 
   useEffect(() => {
     if (startAnimation) {
@@ -27,11 +27,11 @@ const CountUp = ({
         controlsRef.current.stop();
       }
       controlsRef.current = animate(from, to, {
-        duration,
-        onUpdate(latest) {
-          setValue(latest);
-        },
-      });
+            duration,
+            onUpdate(latest) {
+              setValue(latest);
+            },
+          });
     }
   }, [startAnimation, from, to, duration]);
 

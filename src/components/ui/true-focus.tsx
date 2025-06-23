@@ -74,16 +74,16 @@ export const TrueFocus = ({
 
     // Hover or animation is running
     if (currentIndex !== -1) {
-      const activeRect = wordRefs.current[currentIndex]?.getBoundingClientRect();
+    const activeRect = wordRefs.current[currentIndex]?.getBoundingClientRect();
       if (activeRect) {
-        setFocusRect({
-          x: activeRect.left - parentRect.left,
-          y: activeRect.top - parentRect.top,
-          width: activeRect.width,
-          height: activeRect.height,
+      setFocusRect({
+        x: activeRect.left - parentRect.left,
+        y: activeRect.top - parentRect.top,
+        width: activeRect.width,
+        height: activeRect.height,
           opacity: 1,
-        });
-      }
+      });
+    }
       return;
     }
 
@@ -255,4 +255,4 @@ export const TrueFocus = ({
       </motion.div>
     </div>
   );
-}; 
+};

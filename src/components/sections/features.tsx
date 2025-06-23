@@ -1,69 +1,482 @@
-import React from "react";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ShieldBan, Timer, Waves } from "lucide-react";
+"use client";
 
-interface FeatureProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+// FeaturesSection.tsx
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Button,
+} from "@heroui/react";
+import {
+  Timer,
+  ShieldOff,
+  Music,
+  Paintbrush,
+  Trophy,
+  Play,
+  Pause,
+  Check,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
-const features: FeatureProps[] = [
-  {
-    icon: <ShieldBan className="h-6 w-6 text-primary" />,
-    title: "Site Blocker",
-    description: "Create custom blacklists to block distracting sites and whitelists for exceptions, keeping you focused.",
+const colorClasses = {
+  blue: {
+    shadow: "hover:shadow-blue-500/10",
+    from: "from-blue-500/10",
+    to: "to-cyan-500/10",
+    bg: "bg-blue-500/20",
+    text300: "text-blue-300",
+    text200: "text-blue-200",
+    text400: "text-blue-400",
   },
-  {
-    icon: <Timer className="h-6 w-6 text-primary" />,
-    title: "Pomodoro Timer",
-    description: "Manage your work and break sessions with a customizable timer to boost productivity and prevent burnout.",
+  green: {
+    shadow: "hover:shadow-green-500/10",
+    from: "from-green-500/10",
+    to: "to-emerald-500/10",
+    bg: "bg-green-500/20",
+    text300: "text-green-300",
+    text200: "text-green-200",
+    text400: "text-green-400",
   },
-  {
-    icon: <Waves className="h-6 w-6 text-primary" />,
-    title: "Ambient Sounds",
-    description: "Create the perfect work atmosphere by mixing background sounds like rain, nature, or white noise.",
+  yellow: {
+    shadow: "hover:shadow-yellow-500/10",
+    from: "from-yellow-500/10",
+    to: "to-orange-500/10",
+    bg: "bg-yellow-500/20",
+    text300: "text-yellow-300",
+    text200: "text-yellow-200",
+    text400: "text-yellow-400",
   },
-];
+};
 
-const Features = () => {
+const gridContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4 },
+  },
+};
+
+const siteBlockerBodyVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+  },
+};
+
+const POMODORO_MODES = {
+  focus: 25 * 60,
+  "short break": 5 * 60,
+  "long break": 15 * 60,
+};
+type Mode = keyof typeof POMODORO_MODES;
+
+export default function Features() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const [currentMode, setCurrentMode] = useState<Mode>("focus");
+  const [timeRemaining, setTimeRemaining] = useState(POMODORO_MODES.focus);
+  const [isRunning, setIsRunning] = useState(false);
+  const [pulseKey, setPulseKey] = useState(0);
+  const hasAutoStarted = useRef(false);
+
+  const [blockedSites] = useState([
+    "facebook.com",
+    "instagram",
+    "TokTik",
+    "twitter.com",
+    "youtube.com",
+  ]);
+
+  useEffect(() => {
+    if (isInView && !hasAutoStarted.current) {
+      setIsRunning(true);
+      setPulseKey(1);
+      hasAutoStarted.current = true;
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isRunning && timeRemaining > 0) {
+      interval = setInterval(() => {
+        setTimeRemaining((prev) => prev - 1);
+      }, 1000);
+    } else if (timeRemaining === 0) {
+      setIsRunning(false);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning, timeRemaining]);
+
+  const toggleTimer = () => {
+    setIsRunning((prevIsRunning) => {
+      if (!prevIsRunning) {
+        setPulseKey((prevKey) => prevKey + 1);
+      }
+      return !prevIsRunning;
+    });
+  };
+
+  const handleModeChange = (mode: Mode) => {
+    setCurrentMode(mode);
+    setIsRunning(false);
+    setTimeRemaining(POMODORO_MODES[mode]);
+    setPulseKey(0);
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  };
+
+  const radius = 60;
+  const circumference = 2 * Math.PI * radius;
+  const totalDuration = POMODORO_MODES[currentMode];
+  const progress = (totalDuration - timeRemaining) / totalDuration;
+  const strokeDashoffset = circumference * (1 - progress);
+
+  const otherFeatures = [
+    {
+      title: "Ambience Sound",
+      Icon: Music,
+      color: "blue" as keyof typeof colorClasses,
+      description: "Build your perfect focus environment",
+      items: [
+        "Choose from rain, fire, white noise, and more",
+        "Play multiple ambience sounds together",
+      ],
+    },
+    {
+      title: "Customization",
+      Icon: Paintbrush,
+      color: "green" as keyof typeof colorClasses,
+      description: "Make Pokus feel like your own",
+      items: [
+        "Switch between color themes and backgrounds",
+        "Live preview UI changes",
+      ],
+    },
+    {
+      title: "Gamification",
+      Icon: Trophy,
+      color: "yellow" as keyof typeof colorClasses,
+      description: "Turn productivity into a habit",
+      items: ["Earn EXP for completed sessions", "Track your focus streaks"],
+    },
+  ];
+
   return (
-    <section id="features" className="container py-12 md:py-20 space-y-8">
-      <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-          Key{" "}
-          <span className="bg-gradient-to-r from-primary to-primary/70 text-transparent bg-clip-text">
-            Features
-          </span>
+    <section
+      id="features"
+      className="min-h-screen w-full flex flex-col items-center justify-center py-20 lg:py-32 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+            Pokus Features
         </h2>
-        <p className="text-lg md:text-xl text-muted-foreground">
-          Discover the powerful tools that will transform your productivity
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+            Everything you need to stay focused and productive
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12">
-        {features.map(({ icon, title, description }: FeatureProps) => (
-          <Card 
-            key={title} 
-            className="group h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 hover:border-primary/50 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
-            tabIndex={0}
+        <motion.div
+          ref={ref}
+          variants={gridContainerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          style={{ perspective: "1000px" }}
+        >
+          {/* Pomodoro Timer */}
+          <motion.div
+            className="lg:col-span-2"
+            variants={cardVariants}
+            style={{ transformStyle: "preserve-3d" }}
+            whileHover={{ scale: 1.02, rotateY: -4, rotateX: 8 }}
           >
-            <CardHeader className="text-center space-y-4 p-6">
-              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                {icon}
+          <Card 
+              onMouseEnter={() => setHovered(0)}
+              onMouseLeave={() => setHovered(null)}
+              className={cn(
+                "p-6 md:p-8 border-none bg-gradient-to-br from-purple-900/20 to-pink-900/20 transition-all duration-300 h-full",
+                hovered !== null && hovered !== 0 && "blur-sm scale-[0.98]"
+              )}
+              shadow="lg"
+            >
+              <motion.div variants={cardItemVariants}>
+                <CardHeader className="flex items-center gap-4 p-0 mb-8">
+                  <div className="p-3 rounded-xl bg-purple-500/20 text-purple-300">
+                    <Timer className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">
+                      Pomodoro Timer
+                    </h3>
+                    <p className="text-purple-200">
+                      Stay focused with structured sessions
+                    </p>
+                  </div>
+                </CardHeader>
+              </motion.div>
+              <motion.div variants={cardItemVariants}>
+                <CardBody className="flex flex-col items-center justify-center p-4">
+                  <div className="flex items-center justify-center gap-2 mb-8">
+                    {Object.keys(POMODORO_MODES).map((mode) => (
+                      <Button
+                        key={mode}
+                        onClick={() => handleModeChange(mode as Mode)}
+                        size="sm"
+                        variant={currentMode === mode ? "solid" : "light"}
+                        color="secondary"
+                        className="capitalize"
+                      >
+                        {mode}
+                      </Button>
+                    ))}
+                  </div>
+
+                  <div className="relative w-40 h-40 mb-8">
+                    <svg className="w-full h-full" viewBox="0 0 140 140">
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r={radius}
+                        className="stroke-purple-500/20"
+                        strokeWidth="8"
+                        fill="transparent"
+                      />
+                      <motion.circle
+                        cx="70"
+                        cy="70"
+                        r={radius}
+                        className="stroke-purple-400"
+                        strokeWidth="8"
+                        fill="transparent"
+                        strokeLinecap="round"
+                        transform="rotate(-90 70 70)"
+                        strokeDasharray={circumference}
+                        animate={{ strokeDashoffset }}
+                        transition={{ duration: 1, ease: "linear" }}
+                      />
+                    </svg>
+
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={`${currentMode}-${pulseKey}`}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0, scale: [1, 1.15, 1] }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.5, ease: "easeInOut" }}
+                          className="text-4xl font-bold text-white"
+                        >
+                          {formatTime(timeRemaining)}
+                        </motion.span>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                  <motion.div whileTap={{ scale: 0.95 }}>
+                    <Button
+                      onClick={toggleTimer}
+                      color="secondary"
+                      variant="shadow"
+                      size="lg"
+                      startContent={isRunning ? <Pause /> : <Play />}
+          >
+                      {isRunning ? "Pause" : "Resume"}
+                    </Button>
+                  </motion.div>
+                </CardBody>
+              </motion.div>
+              <motion.div variants={cardItemVariants}>
+                <CardFooter className="p-0 mt-6">
+                  <div className="space-y-2 w-full">
+                    {[
+                      "Customize focus and break durations",
+                      "Auto notifications when sessions start and end",
+                    ].map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 text-sm text-purple-200"
+                      >
+                        <Check className="w-4 h-4 text-purple-400" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </CardFooter>
+              </motion.div>
+            </Card>
+          </motion.div>
+
+          {/* Site Blocker */}
+          <motion.div
+            className="lg:col-span-1"
+            variants={cardVariants}
+            style={{ transformStyle: "preserve-3d" }}
+            whileHover={{ scale: 1.02, rotateY: 4, rotateX: 8 }}
+          >
+            <Card
+              onMouseEnter={() => setHovered(1)}
+              onMouseLeave={() => setHovered(null)}
+              className={cn(
+                "p-6 md:p-8 border-none bg-gradient-to-br from-red-900/20 to-orange-900/20 transition-all duration-300 h-full",
+                hovered !== null && hovered !== 1 && "blur-sm scale-[0.98]"
+              )}
+              shadow="lg"
+            >
+              <motion.div variants={cardItemVariants}>
+                <CardHeader className="flex items-center gap-4 p-0 mb-6">
+                  <div className="p-3 rounded-xl bg-red-500/20 text-red-300">
+                    <ShieldOff className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">
+                      Site Blocker
+                    </h3>
+                    <p className="text-red-200">Eliminate distractions</p>
               </div>
-              <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
-                {title}
-              </CardTitle>
-              <CardDescription className="text-sm md:text-base leading-relaxed text-muted-foreground">
-                {description}
-              </CardDescription>
             </CardHeader>
+              </motion.div>
+              <motion.div variants={siteBlockerBodyVariants}>
+                <CardBody className="p-0">
+                  <div className="space-y-2">
+                    {blockedSites.map((site, idx) => (
+                      <motion.div
+                        key={idx}
+                        variants={listItemVariants}
+                        className="flex items-center justify-between p-3 bg-red-500/10 rounded-lg border border-red-500/20"
+                      >
+                        <span className="text-white text-sm">{site}</span>
+                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardBody>
+              </motion.div>
+              <motion.div variants={cardItemVariants}>
+                <CardFooter className="p-0 mt-6">
+                  <div className="space-y-2 w-full">
+                    {["Block during focus time", "Customizable lists"].map(
+                      (item, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2 text-sm text-red-200"
+                        >
+                          <Check className="w-4 h-4 text-red-400" />
+                          {item}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </CardFooter>
+              </motion.div>
           </Card>
-        ))}
+          </motion.div>
+
+          {/* Other Features */}
+          {otherFeatures.map((feature, idx) => {
+            const colors = colorClasses[feature.color];
+            const cardIndex = idx + 2;
+            return (
+              <motion.div
+                key={idx}
+                variants={cardVariants}
+                style={{ transformStyle: "preserve-3d" }}
+                whileHover={{ scale: 1.02, rotateX: 8 }}
+              >
+                <Card
+                  onMouseEnter={() => setHovered(cardIndex)}
+                  onMouseLeave={() => setHovered(null)}
+                  className={cn(
+                    "p-6 border-none bg-slate-800/50 transition-all duration-300 h-full",
+                    hovered !== null &&
+                      hovered !== cardIndex &&
+                      "blur-sm scale-[0.98]"
+                  )}
+                  shadow="lg"
+                >
+                  <motion.div variants={cardItemVariants}>
+                    <CardHeader className="flex items-center gap-3 p-0 mb-4">
+                      <div
+                        className={`p-2 rounded-lg ${colors.bg} ${colors.text300}`}
+                      >
+                        <feature.Icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">
+                          {feature.title}
+                        </h3>
+                        <p className={`text-sm ${colors.text200}`}>
+                          {feature.description}
+                        </p>
+                      </div>
+                    </CardHeader>
+                  </motion.div>
+                  <motion.div variants={cardItemVariants}>
+                    <CardBody className="p-0">
+                      <div className="space-y-2">
+                        {feature.items.map((item, itemIdx) => (
+                          <div
+                            key={itemIdx}
+                            className={`flex items-center gap-2 text-xs text-slate-300`}
+                          >
+                            <Check className={`w-3 h-3 ${colors.text400}`} />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </CardBody>
+                  </motion.div>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Features; 
+} 

@@ -3,14 +3,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TrueFocus } from "../ui/true-focus";
-import CountUp from "../ui/count-up";
-import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import { useState } from "react";
 import { Modal } from "../ui/modal";
 import Image from "next/image";
 import BlurText from "../ui/blur-text";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowRight, X } from "lucide-react";
+import { Download, ArrowRight } from "lucide-react";
 import { AnimatedModal } from "../ui/animated-modal";
 import GithubIcon from "../ui/github-icon";
 
@@ -133,11 +131,11 @@ export function Hero() {
             latest GitHub release.
           </p>
           <ol className="list-decimal list-inside space-y-2 text-sm sm:text-base text-foreground/80 mb-6">
-            <li>Download the latest `pokus-extension.zip` file.</li>
+            <li>Download the latest &ldquo;pokus-extension.zip&rdquo; file.</li>
             <li>Unzip the downloaded file to a permanent location.</li>
-            <li>Open Chrome and navigate to `chrome://extensions`.</li>
-            <li>Enable "Developer mode" in the top right corner.</li>
-            <li>Click "Load unpacked" and select the unzipped folder.</li>
+            <li>Open Chrome and navigate to &ldquo;chrome://extensions&rdquo;.</li>
+            <li>Enable &ldquo;Developer mode&rdquo; in the top right corner.</li>
+            <li>Click &ldquo;Load unpacked&rdquo; and select the unzipped folder.</li>
           </ol>
           <div className="flex flex-col sm:flex-row gap-2">
             <a

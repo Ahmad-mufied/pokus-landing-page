@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react"
 import { Accordion, AccordionItem } from "@heroui/react"
-import { motion, AnimatePresence, easeInOut, useInView } from "framer-motion"
+import { easeInOut, useInView } from "framer-motion"
 import { ChevronRight } from "lucide-react"
 import BlurText from "../ui/blur-text"
 
@@ -94,25 +94,4 @@ const Faq = () => {
                 indicator={({ isOpen }) => (
                   <div className="flex items-center justify-end w-full">
                     <ChevronRight
-                      className={`transition-transform duration-300 ${isOpen ? "rotate-90" : ""} text-white/70 group-hover:text-primary`}
-                      size={20}
-                    />
-                  </div>
-                )}
-                motionProps={motionProps}
-              >
-                <div className="pr-8 pb-6">
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-export default Faq
+                      className={`transition-transform duration-300 ${isOpen ? "rotate-90" : ""} text-white/70 group-hover:text-primary`

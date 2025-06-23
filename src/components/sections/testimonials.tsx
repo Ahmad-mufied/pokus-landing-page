@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -89,7 +89,7 @@ const TestimonialCard = ({ name, role, content, avatar }: Testimonial) => (
           </div>
         </div>
         <blockquote className="text-xs sm:text-sm leading-relaxed text-white/90">
-          "{content}"
+          &ldquo;{content}&rdquo;
         </blockquote>
       </CardContent>
     </Card>

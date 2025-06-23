@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Test OG - Pokus',
@@ -58,9 +59,11 @@ export default function TestOGPage() {
           
           <div className="mt-8">
             <h2 className="text-2xl font-semibold mb-2">Current OG Image:</h2>
-            <img 
+            <Image 
               src="/og" 
               alt="OG Image" 
+              width={400}
+              height={210}
               className="max-w-full h-auto border border-gray-600 rounded-lg"
               style={{ maxWidth: '400px' }}
             />

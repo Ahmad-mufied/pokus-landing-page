@@ -1,227 +1,354 @@
-"use client";
+'use client'
 
-import React from "react";
-import { motion } from "framer-motion";
-import SectionHeader from "../ui/section-header";
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
 
-const teamMembers = [
+interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+  avatar?: string;
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+const testimonials: Testimonial[] = [
   {
-    name: "Alex Johnson",
-    role: "Lead Developer", 
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/alexjohnson",
-    github: "https://github.com/alexjohnson",
-    gradient: "from-blue-500 via-cyan-500 to-blue-600",
-    accent: "from-blue-400 to-cyan-400",
-    description: "Full-stack wizard crafting seamless experiences"
+    name: "Alex Chen",
+    role: "Software Developer",
+    content: "Pokus has completely transformed my work-from-home productivity. The site blocker keeps me focused during deep coding sessions, and the Pomodoro timer helps me maintain a healthy work rhythm.",
+    avatar: "AC"
   },
   {
-    name: "Sarah Chen",
-    role: "UI/UX Designer",
-    photo: "/api/placeholder/150/150", 
-    linkedin: "https://linkedin.com/in/sarahchen",
-    github: "https://github.com/sarahchen",
-    gradient: "from-purple-500 via-pink-500 to-purple-600",
-    accent: "from-purple-400 to-pink-400",
-    description: "Pixel-perfect designs that users love"
+    name: "Sarah Johnson", 
+    role: "Graduate Student",
+    content: "As a PhD student, I struggle with distractions while writing my dissertation. Pokus's ambient sounds and website blocking have been game-changers for my focus and concentration.",
+    avatar: "SJ"
   },
   {
-    name: "Mike Rodriguez",
-    role: "Frontend Developer",
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/mikerodriguez", 
-    github: "https://github.com/mikerodriguez",
-    gradient: "from-green-500 via-emerald-500 to-green-600",
-    accent: "from-green-400 to-emerald-400",
-    description: "Performance enthusiast and code craftsman"
+    name: "Michael Rodriguez",
+    role: "Freelance Designer", 
+    content: "The combination of focus tools in Pokus is perfect for creative work. I love how I can customize my environment with different ambient sounds while blocking social media distractions.",
+    avatar: "MR"
   },
   {
     name: "Emily Davis",
-    role: "Product Manager",
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/emilydavis",
-    github: "https://github.com/emilydavis",
-    gradient: "from-orange-500 via-red-500 to-orange-600",
-    accent: "from-orange-400 to-red-400",
-    description: "Strategic thinker turning ideas into reality"
+    role: "Marketing Manager",
+    content: "Pokus helped me overcome my procrastination habits. The Pomodoro timer with break reminders has improved my productivity by at least 40%. Highly recommended!",
+    avatar: "ED"
+  },
+  {
+    name: "David Kim",
+    role: "Data Analyst", 
+    content: "Simple, effective, and exactly what I needed. Pokus doesn't overwhelm you with features – it just works. The ambient sounds library is surprisingly comprehensive and relaxing.",
+    avatar: "DK"
+  },
+  {
+    name: "Lisa Wang",
+    role: "UX Designer",
+    content: "Love the minimalist interface and how intuitive everything is.",
+    avatar: "LW"
+  },
+  {
+    name: "James Miller",
+    role: "Content Writer",
+    content: "Been using Pokus for 6 months now. Can't imagine working without it. The focus sessions have transformed my writing routine completely.",
+    avatar: "JM"
+  },
+  {
+    name: "Anna Foster",
+    role: "Project Manager",
+    content: "Finally found a productivity tool that actually works for me.",
+    avatar: "AF"
   }
 ];
 
-const Team = () => {
+const teamMembers: TeamMember[] = [
+  {
+    name: "Damar Galih",
+    role: "Product Owner",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBkuun5v1zt1n3aZ2E5N7ho0PSAy8JgOzFuMKi"
+  },
+  {
+    name: "Gilang Nur Hidayat",
+    role: "Scrum Master",
+    avatarUrl: "https://avatars.githubusercontent.com/u/130344101?v=4"
+  },
+  {
+    name: "Muhammad Rizal Arfiyan",
+    role: "Dev",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBGTmIH1iPrfxvoLJ6Za4MBD2jdncE13eUsgtK"
+  },
+  {
+    name: "Ahmad Mufied Nugroho",
+    role: "Dev",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBq1eUcy8GhcYv1dAHiCogF9MaWbmslwfz3uKD"
+  }
+];
+
+const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
+  <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">{title}</h2>
+    <p className="text-sm sm:text-base lg:text-lg text-white/70 max-w-xs sm:max-w-md lg:max-w-2xl mx-auto px-4">{subtitle}</p>
+  </div>
+);
+
+const TestimonialCard = ({ name, role, content, avatar }: Testimonial) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, ease: 'easeOut' }}
+    viewport={{ once: true }}
+    className="break-inside-avoid mb-3 sm:mb-4 flex-shrink-0"
+  >
+    <Card className="bg-white/5 border border-white/10 backdrop-blur-md text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/10 max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
+            {avatar}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold text-white text-xs sm:text-sm truncate">{name}</p>
+            <p className="text-white/60 text-xs">{role}</p>
+          </div>
+        </div>
+        <blockquote className="text-xs sm:text-sm leading-relaxed text-white/90">
+          "{content}"
+        </blockquote>
+      </CardContent>
+    </Card>
+  </motion.div>
+);
+
+const InfiniteScrollColumn = ({ 
+  testimonials, 
+  direction = 'up', 
+  speed = 50, 
+  startOffset = 0,
+  isPaused = false,
+  columnIndex = 0
+}: {
+  testimonials: Testimonial[];
+  direction?: 'up' | 'down';
+  speed?: number;
+  startOffset?: number;
+  isPaused?: boolean;
+  columnIndex?: number;
+}) => {
+  // Buat testimonials yang berbeda untuk setiap kolom
+  const getColumnTestimonials = () => {
+    const shuffled = [...testimonials];
+    // Rotate testimonials berdasarkan column index untuk variasi
+    for (let i = 0; i < columnIndex; i++) {
+      shuffled.push(shuffled.shift()!);
+    }
+    return shuffled;
+  };
+
+  const columnTestimonials = getColumnTestimonials();
+  
+  // Gandakan 4x untuk memastikan loop yang benar-benar seamless
+  const infiniteTestimonials = [
+    ...columnTestimonials,
+    ...columnTestimonials,
+    ...columnTestimonials,
+    ...columnTestimonials
+  ];
+
+  // Estimasi tinggi per testimonial (termasuk margin)
+  const estimatedCardHeight = 180; // Sesuaikan dengan tinggi card actual
+  const totalHeight = columnTestimonials.length * estimatedCardHeight;
+
   return (
-    <section className="py-12 md:py-20 relative overflow-hidden">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
-      
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-secondary/5 via-transparent to-primary/5" />
-      
-      {/* Floating orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
-      <div className="absolute top-40 right-10 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <SectionHeader
-            title="Meet Our Team"
-            subtitle="The passionate individuals behind Pokus, dedicated to helping you achieve your productivity goals with innovative solutions and cutting-edge technology."
+    <div className="relative h-full overflow-hidden">
+      <motion.div
+        className="flex flex-col gap-3 sm:gap-4"
+        initial={{ 
+          y: direction === 'up' ? startOffset : startOffset 
+        }}
+        animate={!isPaused ? {
+          y: direction === 'up' 
+            ? [startOffset, startOffset - totalHeight]
+            : [startOffset, startOffset + totalHeight]
+        } : {
+          y: startOffset
+        }}
+        transition={{
+          duration: speed,
+          repeat: Infinity,
+          ease: "linear",
+          repeatType: "loop"
+        }}
+      >
+        {infiniteTestimonials.map((testimonial, index) => (
+          <TestimonialCard 
+            key={`${columnIndex}-${direction}-${index}`} 
+            {...testimonial} 
           />
-        </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.1,
-              },
-            },
-          }}
+const TestimonialsWall = () => {
+  const [isPaused, setIsPaused] = useState(false);
+
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+
+  return (
+    <section className="py-8 sm:py-10 lg:py-12 relative overflow-hidden">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10 max-h-[600px] sm:max-h-[650px] lg:max-h-[720px] overflow-hidden flex flex-col justify-start">
+        <SectionHeader
+          title="Loved by productive people everywhere"
+          subtitle="See what others are saying about Pokus"
+        />
+
+        {/* Mobile: Single column */}
+        <div 
+          className="block sm:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 50, scale: 0.9 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  transition: {
-                    duration: 0.6,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }
-                },
-              }}
-              className="group relative"
-            >
-              {/* Chroma Grid Card with enhanced styling */}
-              <div className="relative p-[1px] rounded-3xl bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 overflow-hidden">
-                {/* Animated gradient border */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200" />
-                
-                {/* Main card content */}
-                <div className="relative bg-background/90 backdrop-blur-xl rounded-3xl p-6 h-full border border-border/30 group-hover:border-border/50 transition-all duration-500">
-                  {/* Avatar section with enhanced effects */}
-                  <div className="relative mb-6">
-                    {/* Main avatar with gradient border */}
-                    <div className={`relative w-28 h-28 mx-auto rounded-full p-[2px] bg-gradient-to-br ${member.gradient} group-hover:scale-110 transition-all duration-500`}>
-                      <div className="w-full h-full rounded-full bg-background flex items-center justify-center relative overflow-hidden">
-                        <span className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent z-10 relative">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                        {/* Inner glow effect */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${member.accent} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
-                      </div>
-                    </div>
-                    
-                    {/* Floating gradient orbs with enhanced animation */}
-                    <motion.div 
-                      className={`absolute -top-3 -left-3 w-6 h-6 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700`}
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0, 1, 0.8]
-                      }}
-                      transition={{ 
-                        duration: 2, 
-                        repeat: Infinity, 
-                        delay: index * 0.5 
-                      }}
-                    />
-                    <motion.div 
-                      className={`absolute -bottom-3 -right-3 w-4 h-4 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 delay-200`}
-                      animate={{ 
-                        scale: [1, 1.3, 1],
-                        opacity: [0, 1, 0.6]
-                      }}
-                      transition={{ 
-                        duration: 2.5, 
-                        repeat: Infinity, 
-                        delay: index * 0.5 + 0.5 
-                      }}
-                    />
-                    
-                    {/* Additional floating elements */}
-                    <div className={`absolute top-1/2 -right-2 w-2 h-2 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-60 transition-all duration-700 delay-300`} />
-                    <div className={`absolute top-1/2 -left-2 w-2 h-2 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-60 transition-all duration-700 delay-400`} />
-                  </div>
+          <InfiniteScrollColumn
+            testimonials={testimonials}
+            direction="up"
+            speed={60}
+            startOffset={0}
+            isPaused={isPaused}
+            columnIndex={0}
+          />
+        </div>
 
-                  {/* Content section */}
-                  <div className="text-center space-y-3">
-                    <motion.h3 
-                      className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {member.name}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-primary/80 text-sm font-medium tracking-wide"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      {member.role}
-                    </motion.p>
-                    <motion.p 
-                      className="text-muted-foreground text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200"
-                    >
-                      {member.description}
-                    </motion.p>
-                </div>
+        {/* Small Tablet: Two columns */}
+        <div 
+          className="hidden sm:block md:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-2 gap-3 h-full">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={60}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={65}
+              startOffset={-100}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+          </div>
+        </div>
 
-                  {/* Enhanced social links */}
-                  <div className="flex justify-center space-x-3 mt-6 pt-4 border-t border-border/20">
-                    <motion.a 
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                      className={`p-3 rounded-xl bg-gradient-to-br ${member.accent}/10 hover:${member.accent}/20 text-muted-foreground hover:text-primary transition-all duration-300 group/link`}
-                    aria-label={`${member.name}'s LinkedIn profile`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                  >
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover/link:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                    </motion.a>
-                    <motion.a 
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                      className={`p-3 rounded-xl bg-gradient-to-br ${member.accent}/10 hover:${member.accent}/20 text-muted-foreground hover:text-primary transition-all duration-300 group/link`}
-                    aria-label={`${member.name}'s GitHub profile`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                  >
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover/link:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    </motion.a>
-                  </div>
+        {/* Medium Tablet: Two columns */}
+        <div 
+          className="hidden md:block lg:hidden h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-2 gap-4 h-full max-w-4xl mx-auto">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={70}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={75}
+              startOffset={-150}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+          </div>
+        </div>
 
-                  {/* Enhanced gradient overlay on hover */}
-                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${member.accent}/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
-                  
-                  {/* Subtle glow effect */}
-                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${member.accent}/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-xl pointer-events-none`} />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Desktop: Three columns */}
+        <div 
+          className="hidden lg:block h-full"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="grid grid-cols-3 gap-4 xl:gap-6 h-full max-w-7xl mx-auto">
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={80}
+              startOffset={0}
+              isPaused={isPaused}
+              columnIndex={0}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="down"
+              speed={85}
+              startOffset={-100}
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+            <InfiniteScrollColumn
+              testimonials={testimonials}
+              direction="up"
+              speed={90}
+              startOffset={-200}
+              isPaused={isPaused}
+              columnIndex={2}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Team; 
+const TeamCard = ({ name, role, avatarUrl }: TeamMember) => (
+  <div className="flex flex-col items-center bg-white/5 border border-white/10 backdrop-blur-md text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/10 rounded-xl p-6 w-full max-w-xs mx-auto">
+    <img
+      src={avatarUrl}
+      alt={name}
+      className="w-12 h-12 rounded-full object-cover mb-3 border-2 border-white/20 shadow"
+      width={48}
+      height={48}
+      loading="lazy"
+    />
+    <div className="text-center">
+      <p className="font-semibold text-white text-base truncate">{name}</p>
+      <p className="text-white/60 text-sm">{role}</p>
+    </div>
+  </div>
+);
+
+const TeamSection = () => (
+  <section className="py-8 sm:py-10 lg:py-12 relative overflow-hidden">
+    <div className="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
+      <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">Meet the Team</h2>
+        <p className="text-sm sm:text-base lg:text-lg text-white/70 max-w-xs sm:max-w-md lg:max-w-2xl mx-auto px-4">
+          The people behind Pokus
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {teamMembers.map((member, idx) => (
+          <TeamCard key={idx} {...member} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default TeamSection;

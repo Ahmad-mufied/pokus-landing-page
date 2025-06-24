@@ -2,7 +2,7 @@
 
 import { FaXTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa6'
 import { motion } from 'framer-motion'
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { useInView } from 'framer-motion'
 import BlurText from '../ui/blur-text'
 

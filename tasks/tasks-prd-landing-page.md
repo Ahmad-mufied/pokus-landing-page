@@ -17,6 +17,7 @@
 - `src/components/sections/cta.tsx` - The component for the final call-to-action section.
 - `tailwind.config.ts` - Tailwind CSS configuration file for defining theme colors, fonts, and other design tokens (fixed darkMode configuration for production build).
 - `src/styles/globals.css` - Global stylesheet to define the color variables from the PRD.
+- `src/app/og/route.tsx` - Generates the dynamic OG image, now using the logo centered on a clean background
 
 ### Notes
 
@@ -53,4 +54,6 @@
   - [x] 4.2 In the `Testimonials` section, implement the UI to display 5 placeholder testimonials.
   - [x] 4.3 Ensure all interactive elements like buttons and links have clear hover and focus states as defined in the UI design.
   - [x] 4.4 Make the entire landing page fully responsive for tablet and mobile devices.
+
+- [x] Update Open Graph and favicon/logo for social preview
 

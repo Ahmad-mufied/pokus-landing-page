@@ -31,16 +31,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://pokus-landing.netlify.app/",
+    url: "https://pokus-landing-page.vercel.app",
     siteName: "Pokus",
     title: "Pokus - Stop Procrastinating, Start Focusing",
     description: "Transform your productivity with Pokus - the Chrome extension that blocks distractions and helps you focus with the Pomodoro Technique. Get more done, stay on track.",
     images: [
       {
-        url: "https://pokus-landing.netlify.app/logo-pokus-light.png",
-        width: 512,
-        height: 512,
-        alt: "Pokus Logo",
+        url: "/og",
+        width: 1200,
+        height: 630,
+        alt: "Pokus - Productivity Chrome Extension",
       },
     ],
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pokus - Stop Procrastinating, Start Focusing",
     description: "Transform your productivity with Pokus - the Chrome extension that blocks distractions and helps you focus with the Pomodoro Technique.",
-    images: ["https://pokus-landing.netlify.app/logo-pokus-light.png"],
+    images: ["/og"],
     creator: "@pokus_team",
     site: "@pokus_team",
   },
@@ -98,10 +98,11 @@ export const metadata: Metadata = {
   // Icons
   icons: {
     icon: [
+      { url: "/favicon.ico" },
       { url: "/logo-pokus-light.png", sizes: "32x32", type: "image/png" },
       { url: "/logo-pokus-light.png", sizes: "16x16", type: "image/png" },
     ],
-    shortcut: "/logo-pokus-light.png",
+    shortcut: "/favicon.ico",
     apple: "/logo-pokus-light.png",
     other: {
       rel: "apple-touch-icon-precomposed",
@@ -127,7 +128,7 @@ export default function RootLayout({
         <meta property="og:image:type" content="image/png" />
         
         {/* WhatsApp specific meta tags */}
-        <meta property="og:image:secure_url" content="https://pokus-landing.netlify.app/logo-pokus-light.png" />
+        <meta property="og:image:secure_url" content="https://pokus-landing-page.vercel.app/og" />
         
         {/* Discord specific meta tags */}
         <meta name="theme-color" content="#000000" />
@@ -141,11 +142,10 @@ export default function RootLayout({
         <meta name="twitter:image:alt" content="Pokus - Productivity Chrome Extension" />
         <meta name="twitter:site" content="@pokus_team" />
         <meta name="twitter:creator" content="@pokus_team" />
-        <meta name="twitter:image" content="https://pokus-landing.netlify.app/logo-pokus-light.png" />
         
         {/* LinkedIn specific */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pokus-landing.netlify.app/" />
+        <meta property="og:url" content="https://pokus-landing-page.vercel.app" />
         
         {/* Pinterest specific */}
         <meta name="pinterest-rich-pin" content="true" />
@@ -159,7 +159,7 @@ export default function RootLayout({
               "@type": "SoftwareApplication",
               "name": "Pokus",
               "description": "Transform your productivity with Pokus - the Chrome extension that blocks distractions and helps you focus with the Pomodoro Technique.",
-              "url": "https://pokus-landing.netlify.app/",
+              "url": "https://pokus-landing-page.vercel.app",
               "applicationCategory": "ProductivityApplication",
               "operatingSystem": "Chrome",
               "offers": {
@@ -171,7 +171,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 "name": "Pokus Team"
               },
-              "screenshot": "https://pokus-landing.netlify.app/logo-pokus-light.png",
+              "screenshot": "https://pokus-landing-page.vercel.app/og",
               "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.8",
@@ -180,12 +180,6 @@ export default function RootLayout({
             })
           }}
         />
-        <link rel="icon" href="/logo-pokus-light.png" sizes="32x32" type="image/png" />
-        <link rel="icon" href="/logo-pokus-light.png" sizes="16x16" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo-pokus-light.png" />
-        <meta property="og:image" content="https://pokus-landing.netlify.app/logo-pokus-light.png" />
-        <meta property="og:image:secure_url" content="https://pokus-landing.netlify.app/logo-pokus-light.png" />
-        <meta name="twitter:image" content="https://pokus-landing.netlify.app/logo-pokus-light.png" />
       </head>
       <body
         className={cn(

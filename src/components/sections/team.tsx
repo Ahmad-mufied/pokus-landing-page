@@ -1,227 +1,151 @@
-"use client";
+'use client'
 
-import React from "react";
-import { motion } from "framer-motion";
-import SectionHeader from "../ui/section-header";
+import { FaXTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa6'
+import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { useInView } from 'framer-motion'
+import BlurText from '../ui/blur-text'
 
-const teamMembers = [
+interface TeamMember {
+  name: string
+  position: string
+  role: string
+  avatarUrl: string
+  idx?: number
+}
+
+const teamMembers: TeamMember[] = [
   {
-    name: "Alex Johnson",
-    role: "Lead Developer", 
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/alexjohnson",
-    github: "https://github.com/alexjohnson",
-    gradient: "from-blue-500 via-cyan-500 to-blue-600",
-    accent: "from-blue-400 to-cyan-400",
-    description: "Full-stack wizard crafting seamless experiences"
+    name: "Damar Galih",
+    position: "Product Owner",
+    role: "I've established pagedone in 2022 and it was one of the best idea I've had in my life.",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBkuun5v1zt1n3aZ2E5N7ho0PSAy8JgOzFuMKi"
   },
   {
-    name: "Sarah Chen",
-    role: "UI/UX Designer",
-    photo: "/api/placeholder/150/150", 
-    linkedin: "https://linkedin.com/in/sarahchen",
-    github: "https://github.com/sarahchen",
-    gradient: "from-purple-500 via-pink-500 to-purple-600",
-    accent: "from-purple-400 to-pink-400",
-    description: "Pixel-perfect designs that users love"
+    name: "Gilang Nur Hidayat",
+    position: "Scrum Master",
+    role: "I've established pagedone in 2022 and it was one of the best idea I've had in my life.",
+    avatarUrl: "https://avatars.githubusercontent.com/u/130344101?v=4"
   },
   {
-    name: "Mike Rodriguez",
-    role: "Frontend Developer",
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/mikerodriguez", 
-    github: "https://github.com/mikerodriguez",
-    gradient: "from-green-500 via-emerald-500 to-green-600",
-    accent: "from-green-400 to-emerald-400",
-    description: "Performance enthusiast and code craftsman"
+    name: "Muhammad Rizal Arfiyan",
+    position: "Frontend Developer",
+    role: "I've established pagedone in 2022 and it was one of the best idea I've had in my life.",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBGTmIH1iPrfxvoLJ6Za4MBD2jdncE13eUsgtK"
   },
   {
-    name: "Emily Davis",
-    role: "Product Manager",
-    photo: "/api/placeholder/150/150",
-    linkedin: "https://linkedin.com/in/emilydavis",
-    github: "https://github.com/emilydavis",
-    gradient: "from-orange-500 via-red-500 to-orange-600",
-    accent: "from-orange-400 to-red-400",
-    description: "Strategic thinker turning ideas into reality"
+    name: "Ahmad Mufied Nugroho",
+    position: "Backend Developer",
+    role: "I've established pagedone in 2022 and it was one of the best idea I've had in my life.",
+    avatarUrl: "https://5xgbtx8c95.ufs.sh/f/ofUH6VZs10HBq1eUcy8GhcYv1dAHiCogF9MaWbmslwfz3uKD"
   }
-];
+]
 
-const Team = () => {
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.05
+    }
+  }
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 80, scale: 0.85, filter: 'blur(4px)', boxShadow: '0 0 0 0 rgba(59,130,246,0)', ring: '0' },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    boxShadow: '0 0 16px 0 rgba(59,130,246,0.15)',
+    transition: {
+      duration: 0.5,
+      type: 'spring' as const,
+      bounce: 0.25,
+      damping: 8,
+      delay: i * 0.06
+    }
+  })
+}
+
+const TeamCard = ({ name, position, role, avatarUrl, idx = 0, animateState = 'hidden' }: TeamMember & { animateState: 'show' | 'hidden' }) => {
   return (
-    <section className="py-12 md:py-20 relative overflow-hidden">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]" />
-      
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-secondary/5 via-transparent to-primary/5" />
-      
-      {/* Floating orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse" />
-      <div className="absolute top-40 right-10 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <motion.div
+      variants={cardVariants}
+      custom={idx}
+      animate={animateState}
+      viewport={{ amount: 0.1 }}
+      whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)' }}
+      className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 pt-14 mt-12 pb-6 shadow-md text-white text-center transition-all duration-300 flex flex-col items-center min-h-[280px] "
+      style={{ outline: 'none' }}
+    >
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 sm:w-24 sm:h-24">
+        <img
+          src={avatarUrl}
+          alt={name}
+          className="w-full h-full rounded-full border-4 border-white/30 shadow-md object-cover bg-white"
+        />
+      </div>
+      <h3 className="mt-6 sm:mt-8 font-semibold text-lg md:text-xl break-words w-full">{name}</h3>
+      <p className="italic text-xs sm:text-sm text-blue-200 mb-1">{position}</p>
+      <p className="text-xs sm:text-sm text-white/80 mt-1 mb-4 px-2 md:px-0">{role}</p>
+      <div className="flex justify-center gap-4 mt-auto">
+        <motion.span whileHover={{ scale: 1.3, rotate: -10 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
+          <FaXTwitter className="w-5 h-5 cursor-pointer text-white/80 hover:text-white transition-transform" />
+        </motion.span>
+        <motion.span whileHover={{ scale: 1.3, rotate: 10 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
+          <FaInstagram className="w-5 h-5 cursor-pointer text-white/80 hover:text-white transition-transform" />
+        </motion.span>
+        <motion.span whileHover={{ scale: 1.3, rotate: 0 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
+          <FaLinkedin className="w-5 h-5 cursor-pointer text-white/80 hover:text-white transition-transform" />
+        </motion.span>
+      </div>
+    </motion.div>
+  )
+}
+
+const TeamSection = () => {
+  const titleRef = useRef(null)
+  const sectionRef = useRef(null)
+  const isInView = useInView(titleRef, { once: false, amount: 0.5 })
+  const isSectionInView = useInView(sectionRef, { once: false, amount: 0.2 })
+  return (
+    <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 px-2 sm:px-4 md:px-8  text-white">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: false, amount: 0.5 }}
+          className="text-center mb-12 sm:mb-16 md:mb-20"
+          ref={titleRef}
         >
-          <SectionHeader
-            title="Meet Our Team"
-            subtitle="The passionate individuals behind Pokus, dedicated to helping you achieve your productivity goals with innovative solutions and cutting-edge technology."
+          <BlurText
+            text="Welcome our talented team"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
+            startAnimation={isInView}
+            delay={0}
+          />
+          <BlurText
+            text="We are thrilled to introduce the newest members of our team. Each individual brings a wealth of experience, creativity, and passion to our organization."
+            className="text-white/70 mt-4 max-w-2xl mx-auto text-sm sm:text-base"
+            startAnimation={isInView}
+            delay={0.2}
           />
         </motion.div>
-
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 mt-10"
+          variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.1,
-              },
-            },
-          }}
+          animate={isSectionInView ? 'show' : 'hidden'}
+          viewport={{ once: false, amount: 0.1 }}
         >
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 50, scale: 0.9 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  transition: {
-                    duration: 0.6,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }
-                },
-              }}
-              className="group relative"
-            >
-              {/* Chroma Grid Card with enhanced styling */}
-              <div className="relative p-[1px] rounded-3xl bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 overflow-hidden">
-                {/* Animated gradient border */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200" />
-                
-                {/* Main card content */}
-                <div className="relative bg-background/90 backdrop-blur-xl rounded-3xl p-6 h-full border border-border/30 group-hover:border-border/50 transition-all duration-500">
-                  {/* Avatar section with enhanced effects */}
-                  <div className="relative mb-6">
-                    {/* Main avatar with gradient border */}
-                    <div className={`relative w-28 h-28 mx-auto rounded-full p-[2px] bg-gradient-to-br ${member.gradient} group-hover:scale-110 transition-all duration-500`}>
-                      <div className="w-full h-full rounded-full bg-background flex items-center justify-center relative overflow-hidden">
-                        <span className="text-3xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent z-10 relative">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                        {/* Inner glow effect */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${member.accent} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
-                      </div>
-                    </div>
-                    
-                    {/* Floating gradient orbs with enhanced animation */}
-                    <motion.div 
-                      className={`absolute -top-3 -left-3 w-6 h-6 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700`}
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0, 1, 0.8]
-                      }}
-                      transition={{ 
-                        duration: 2, 
-                        repeat: Infinity, 
-                        delay: index * 0.5 
-                      }}
-                    />
-                    <motion.div 
-                      className={`absolute -bottom-3 -right-3 w-4 h-4 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 delay-200`}
-                      animate={{ 
-                        scale: [1, 1.3, 1],
-                        opacity: [0, 1, 0.6]
-                      }}
-                      transition={{ 
-                        duration: 2.5, 
-                        repeat: Infinity, 
-                        delay: index * 0.5 + 0.5 
-                      }}
-                    />
-                    
-                    {/* Additional floating elements */}
-                    <div className={`absolute top-1/2 -right-2 w-2 h-2 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-60 transition-all duration-700 delay-300`} />
-                    <div className={`absolute top-1/2 -left-2 w-2 h-2 bg-gradient-to-br ${member.accent} rounded-full opacity-0 group-hover:opacity-60 transition-all duration-700 delay-400`} />
-                  </div>
-
-                  {/* Content section */}
-                  <div className="text-center space-y-3">
-                    <motion.h3 
-                      className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {member.name}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-primary/80 text-sm font-medium tracking-wide"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      {member.role}
-                    </motion.p>
-                    <motion.p 
-                      className="text-muted-foreground text-xs leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200"
-                    >
-                      {member.description}
-                    </motion.p>
-                </div>
-
-                  {/* Enhanced social links */}
-                  <div className="flex justify-center space-x-3 mt-6 pt-4 border-t border-border/20">
-                    <motion.a 
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                      className={`p-3 rounded-xl bg-gradient-to-br ${member.accent}/10 hover:${member.accent}/20 text-muted-foreground hover:text-primary transition-all duration-300 group/link`}
-                    aria-label={`${member.name}'s LinkedIn profile`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                  >
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover/link:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                    </motion.a>
-                    <motion.a 
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                      className={`p-3 rounded-xl bg-gradient-to-br ${member.accent}/10 hover:${member.accent}/20 text-muted-foreground hover:text-primary transition-all duration-300 group/link`}
-                    aria-label={`${member.name}'s GitHub profile`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                  >
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover/link:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    </motion.a>
-                  </div>
-
-                  {/* Enhanced gradient overlay on hover */}
-                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${member.accent}/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
-                  
-                  {/* Subtle glow effect */}
-                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${member.accent}/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-xl pointer-events-none`} />
-                </div>
-              </div>
-            </motion.div>
+          {teamMembers.map((member, idx) => (
+            <TeamCard key={idx} {...member} idx={idx} animateState={isSectionInView ? 'show' : 'hidden'} />
           ))}
         </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Team; 
+export default TeamSection

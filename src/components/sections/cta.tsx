@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button"
 
 const Cta = () => {
   return (
-    <section className="py-12 md:py-20 bg-primary/5">
+    <section className="py-12 pt-24 md:py-20 bg-primary/5">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">

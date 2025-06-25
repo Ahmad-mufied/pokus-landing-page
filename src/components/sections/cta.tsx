@@ -10,7 +10,6 @@ interface CtaProps {
 
 const Cta = ({ visible = true }: CtaProps) => {
   const [titleInView, setTitleInView] = useState(false)
-  const [descriptionInView, setDescriptionInView] = useState(false)
   const [buttonInView, setButtonInView] = useState(false)
   const [backgroundInView, setBackgroundInView] = useState(false)
 

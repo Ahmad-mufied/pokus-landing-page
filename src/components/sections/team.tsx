@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useState, useRef } from 'react'
 import { useInView } from 'framer-motion'
 import BlurText from '../ui/blur-text'
+import Image from 'next/image'
 
 interface TeamMember {
   name: string
@@ -111,11 +112,13 @@ const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMemb
       style={{ outline: 'none' }}
     >
       <div className="absolute -top-6 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
-        <img
+        <Image
           src={avatarUrl}
           alt={name}
           className="w-full h-full rounded-full border-4 border-white/30 shadow-md object-cover bg-white transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
           loading="lazy"
+          width={80}
+          height={80}
         />
       </div>
       <div className="flex flex-col w-full flex-1">

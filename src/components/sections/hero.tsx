@@ -67,14 +67,20 @@ export function Hero() {
             transition={{ delay: 1, duration: 0.5 }}
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
-            <Button
-              size="lg"
-              onClick={() => setModalOpen(true)}
-              className="w-full sm:w-auto px-6 py-4 text-base font-semibold tracking-wide bg-white text-black shadow-lg shadow-white/20 hover:bg-white/90 transition-all duration-300"
+            <a
+              href="https://github.com/rizalarfiyan/pokus/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
             >
-              <GithubIcon className="mr-2 h-5 w-5 text-black" />
-              Install via GitHub
-            </Button>
+              <Button
+                size="lg"
+                className="w-full sm:w-auto px-6 py-4 text-base font-semibold tracking-wide bg-white text-black shadow-lg shadow-white/20 hover:bg-white/90 transition-all duration-300"
+              >
+                <GithubIcon className="mr-2 h-5 w-5 text-black" />
+                Install via GitHub
+              </Button>
+            </a>
             <Button
               size="lg"
               variant="outline"

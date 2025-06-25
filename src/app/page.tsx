@@ -21,7 +21,7 @@ export default function Home() {
         <Hero />
         <Features />
         <Demo />
-        <Benefits />
+        {/* <Benefits /> */}
         <Testimonials />
         <Faq />
         <TeamSection onFinish={() => setShowCta(true)} />

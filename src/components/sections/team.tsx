@@ -96,7 +96,7 @@ const cardVariants = {
 const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMember) => {
   const [isInView, setIsInView] = useState(false)
   return (
-    <motion.div
+      <motion.div
       variants={cardVariants}
       custom={idx}
       animate={isInView ? 'show' : 'hidden'}
@@ -185,7 +185,7 @@ const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMemb
           </span>
         )}
       </div>
-    </motion.div>
+      </motion.div>
   )
 }
 

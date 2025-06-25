@@ -169,9 +169,9 @@ const Cta = ({ visible = true }: CtaProps) => {
             <LiquidGlassButton
               size="lg"
               className="w-full max-w-xs sm:max-w-md md:max-w-lg transform transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
-              onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+              onClick={() => window.open('https://github.com/rizalarfiyan/pokus/', '_blank')}
             >
-              🚀 Get Pokus for Chrome & Firefox Now
+              🚀 Get Pokus for Chrome Now
             </LiquidGlassButton>
           </motion.div>
         </motion.div>

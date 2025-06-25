@@ -109,9 +109,9 @@ export function Hero() {
               className="group w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700"
             >
               <Image
-                src="https://assets.aceternity.com/pro/aceternity-landing.webp"
-                alt="Landing page preview"
-                className="aspect-[16/9] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                src="/Pomodoro-UI.png"
+                alt="Pomodoro UI preview"
+                className="aspect-[16/9] h-auto w-full object-contain bg-neutral-900 transition-transform duration-300 group-hover:scale-105"
                 height={1000}
                 width={1000}
                 priority
@@ -162,9 +162,9 @@ export function Hero() {
 
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <Image
-          src="https://assets.aceternity.com/pro/aceternity-landing.webp"
-          alt="Landing page preview"
-          className="max-h-[90vh] w-auto rounded-lg object-contain"
+          src="/Pomodoro-UI.png"
+          alt="Pomodoro UI preview"
+          className="max-h-[90vh] w-auto rounded-lg object-contain bg-neutral-900"
           height={1080}
           width={1920}
         />

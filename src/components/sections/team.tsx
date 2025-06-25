@@ -189,7 +189,11 @@ const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMemb
   )
 }
 
-const TeamSection = () => {
+interface TeamSectionProps {
+  onFinish?: () => void
+}
+
+const TeamSection = ({ onFinish }: TeamSectionProps) => {
   const titleRef = useRef(null)
   const isInView = useInView(titleRef, { once: false, amount: 0.5 })
   return (
@@ -216,11 +220,12 @@ const TeamSection = () => {
           />
         </motion.div>
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mt-10 md:mt-16 lg:mt-20"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mt-10 md:mt-16 lg:mt-20 overflow-x-hidden overflow-y-hidden px-2"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: false, amount: 0.35 }}
+          onAnimationComplete={onFinish}
         >
           {teamMembers.map((member, idx) => (
             <TeamCard key={idx} {...member} idx={idx} />

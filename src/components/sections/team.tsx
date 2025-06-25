@@ -101,24 +101,23 @@ const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMemb
       variants={cardVariants}
       custom={idx}
       animate={isInView ? 'show' : 'hidden'}
-      onViewportEnter={() => setIsInView(true)}
-      onViewportLeave={() => setIsInView(false)}
+      onViewportEnter={() => setIsInView(false)}
       viewport={{ amount: 0.35 }}
       whileHover={{ scale: 1.045, boxShadow: '0 8px 32px 0 rgba(59,130,246,0.25)', borderColor: '#60a5fa' }}
       whileFocus={{ scale: 1.045, boxShadow: '0 8px 32px 0 rgba(59,130,246,0.25)', borderColor: '#60a5fa' }}
       tabIndex={0}
       aria-label={`Team member: ${name}, ${position}`}
-      className="relative mt-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-3 sm:px-4 pt-12 sm:pt-14 pb-4 sm:pb-6 shadow-md text-white text-center transition-all duration-300 flex flex-col items-center min-h-[240px] sm:min-h-[260px] md:min-h-[280px] outline-none focus:ring-2 focus:ring-blue-400"
+      className="relative mt-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-3 sm:px-4 pt-16 sm:pt-20 pb-4 sm:pb-6 shadow-md text-white text-center transition-all duration-300 flex flex-col items-center min-h-[240px] sm:min-h-[260px] md:min-h-[280px] outline-none focus:ring-2 focus:ring-blue-400 overflow-visible"
       style={{ outline: 'none' }}
     >
-      <div className="absolute -top-6 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20">
+      <div className="absolute -top-10 sm:-top-12 md:-top-14 left-1/2 -translate-x-1/2 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 overflow-visible">
         <Image
           src={avatarUrl}
           alt={name}
           className="w-full h-full rounded-full border-4 border-white/30 shadow-md object-cover bg-white transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
           loading="lazy"
-          width={80}
-          height={80}
+          width={112}
+          height={112}
         />
       </div>
       <div className="flex flex-col w-full flex-1">

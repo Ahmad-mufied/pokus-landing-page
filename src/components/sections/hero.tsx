@@ -68,7 +68,7 @@ export function Hero() {
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
             <a
-              href="https://github.com/rizalarfiyan/pokus/releases"
+              href="https://github.com/rizalarfiyan/pokus/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto"

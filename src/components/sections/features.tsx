@@ -2,13 +2,7 @@
 
 // FeaturesSection.tsx
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardFooter,
-  Button,
-} from "@heroui/react";
+import { Card, CardBody, CardHeader, CardFooter, Button } from "@heroui/react";
 import {
   Timer,
   ShieldOff,
@@ -227,7 +221,7 @@ export default function Features() {
             startAnimation={isInView}
             delay={0.2}
           />
-      </div>
+        </div>
 
         <motion.div
           ref={ref}
@@ -244,25 +238,25 @@ export default function Features() {
             style={{ transformStyle: "preserve-3d" }}
             whileHover={{ scale: 1.02, rotateY: -4, rotateX: 8 }}
           >
-          <Card 
+            <Card
               onMouseEnter={() => setHovered(0)}
               onMouseLeave={() => setHovered(null)}
               className={cn(
-                "p-6 md:p-8 border-none bg-gradient-to-br from-purple-900/20 to-pink-900/20 transition-all duration-300 h-full",
-                hovered !== null && hovered !== 0 && "blur-sm scale-[0.98]"
+                "p-6 md:p-8 border border-blue-500/20 bg-gradient-to-br from-blue-900/30 to-indigo-900/30 backdrop-blur-sm transition-all duration-300 h-full shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:shadow-xl",
+                hovered !== null && hovered !== 0 && "blur-sm scale-[0.98]",
               )}
               shadow="lg"
             >
               <motion.div variants={cardItemVariants}>
                 <CardHeader className="flex items-center gap-4 p-0 mb-8">
-                  <div className="p-3 rounded-xl bg-purple-500/20 text-purple-300">
+                  <div className="p-3 rounded-xl bg-blue-500/20 text-blue-300 shadow-lg shadow-blue-500/20">
                     <Timer className="w-8 h-8" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-white">
                       Pomodoro Timer
                     </h3>
-                    <p className="text-purple-200">
+                    <p className="text-blue-200">
                       Stay focused with structured sessions
                     </p>
                   </div>
@@ -291,7 +285,7 @@ export default function Features() {
                         cx="70"
                         cy="70"
                         r={radius}
-                        className="stroke-purple-500/20"
+                        className="stroke-blue-500/20"
                         strokeWidth="8"
                         fill="transparent"
                       />
@@ -299,7 +293,7 @@ export default function Features() {
                         cx="70"
                         cy="70"
                         r={radius}
-                        className="stroke-purple-400"
+                        className="stroke-blue-400 drop-shadow-lg"
                         strokeWidth="8"
                         fill="transparent"
                         strokeLinecap="round"
@@ -332,7 +326,7 @@ export default function Features() {
                       variant="shadow"
                       size="lg"
                       startContent={isRunning ? <Pause /> : <Play />}
-          >
+                    >
                       {isRunning ? "Pause" : "Resume"}
                     </Button>
                   </motion.div>
@@ -347,9 +341,9 @@ export default function Features() {
                     ].map((item, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center gap-2 text-sm text-purple-200"
+                        className="flex items-center gap-2 text-sm text-blue-200"
                       >
-                        <Check className="w-4 h-4 text-purple-400" />
+                        <Check className="w-4 h-4 text-blue-400" />
                         {item}
                       </div>
                     ))}
@@ -370,23 +364,23 @@ export default function Features() {
               onMouseEnter={() => setHovered(1)}
               onMouseLeave={() => setHovered(null)}
               className={cn(
-                "p-6 md:p-8 border-none bg-gradient-to-br from-red-900/20 to-orange-900/20 transition-all duration-300 h-full",
-                hovered !== null && hovered !== 1 && "blur-sm scale-[0.98]"
+                "p-6 md:p-8 border border-blue-500/20 bg-gradient-to-br from-blue-900/30 to-cyan-900/30 backdrop-blur-sm transition-all duration-300 h-full shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:shadow-xl",
+                hovered !== null && hovered !== 1 && "blur-sm scale-[0.98]",
               )}
               shadow="lg"
             >
               <motion.div variants={cardItemVariants}>
                 <CardHeader className="flex items-center gap-4 p-0 mb-6">
-                  <div className="p-3 rounded-xl bg-red-500/20 text-red-300">
+                  <div className="p-3 rounded-xl bg-blue-500/20 text-blue-300 shadow-lg shadow-blue-500/20">
                     <ShieldOff className="w-8 h-8" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-white">
                       Site Blocker
                     </h3>
-                    <p className="text-red-200">Eliminate distractions</p>
-              </div>
-            </CardHeader>
+                    <p className="text-blue-200">Eliminate distractions</p>
+                  </div>
+                </CardHeader>
               </motion.div>
               <motion.div variants={siteBlockerBodyVariants}>
                 <CardBody className="p-0">
@@ -395,10 +389,10 @@ export default function Features() {
                       <motion.div
                         key={idx}
                         variants={listItemVariants}
-                        className="flex items-center justify-between p-3 bg-red-500/10 rounded-lg border border-red-500/20"
+                        className="flex items-center justify-between p-3 bg-blue-500/10 rounded-lg border border-blue-500/20 shadow-sm shadow-blue-500/10"
                       >
                         <span className="text-white text-sm">{site}</span>
-                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-sm shadow-blue-500/50"></div>
                       </motion.div>
                     ))}
                   </div>
@@ -411,17 +405,17 @@ export default function Features() {
                       (item, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-2 text-sm text-red-200"
+                          className="flex items-center gap-2 text-sm text-blue-200"
                         >
-                          <Check className="w-4 h-4 text-red-400" />
+                          <Check className="w-4 h-4 text-blue-400" />
                           {item}
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </CardFooter>
               </motion.div>
-          </Card>
+            </Card>
           </motion.div>
 
           {/* Other Features */}
@@ -439,10 +433,10 @@ export default function Features() {
                   onMouseEnter={() => setHovered(cardIndex)}
                   onMouseLeave={() => setHovered(null)}
                   className={cn(
-                    "p-6 border-none bg-slate-800/50 transition-all duration-300 h-full",
+                    "p-6 border border-blue-500/20 bg-gradient-to-br from-blue-900/20 to-slate-900/40 backdrop-blur-sm transition-all duration-300 h-full shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:shadow-xl",
                     hovered !== null &&
                       hovered !== cardIndex &&
-                      "blur-sm scale-[0.98]"
+                      "blur-sm scale-[0.98]",
                   )}
                   shadow="lg"
                 >
@@ -486,4 +480,4 @@ export default function Features() {
       </div>
     </section>
   );
-} 
+}

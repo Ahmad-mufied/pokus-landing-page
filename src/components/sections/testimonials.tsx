@@ -13,33 +13,33 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Alex Chen",
-    role: "Software Developer",
-    content: "Pokus has completely transformed my work-from-home productivity. The site blocker keeps me focused during deep coding sessions, and the Pomodoro timer helps me maintain a healthy work rhythm.",
+      name: "Alex Chen",
+      role: "Software Developer",
+      content: "Pokus has completely transformed my work-from-home productivity. The site blocker keeps me focused during deep coding sessions, and the Pomodoro timer helps me maintain a healthy work rhythm.",
     avatar: "AC"
-  },
-  {
-    name: "Sarah Johnson", 
-    role: "Graduate Student",
-    content: "As a PhD student, I struggle with distractions while writing my dissertation. Pokus's ambient sounds and website blocking have been game-changers for my focus and concentration.",
+    },
+    {
+      name: "Sarah Johnson",
+      role: "Graduate Student",
+      content: "As a PhD student, I struggle with distractions while writing my dissertation. Pokus's ambient sounds and website blocking have been game-changers for my focus and concentration.",
     avatar: "SJ"
-  },
-  {
-    name: "Michael Rodriguez",
-    role: "Freelance Designer", 
-    content: "The combination of focus tools in Pokus is perfect for creative work. I love how I can customize my environment with different ambient sounds while blocking social media distractions.",
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "Freelance Designer",
+      content: "The combination of focus tools in Pokus is perfect for creative work. I love how I can customize my environment with different ambient sounds while blocking social media distractions.",
     avatar: "MR"
-  },
-  {
-    name: "Emily Davis",
-    role: "Marketing Manager",
-    content: "Pokus helped me overcome my procrastination habits. The Pomodoro timer with break reminders has improved my productivity by at least 40%. Highly recommended!",
+    },
+    {
+      name: "Emily Davis",
+      role: "Marketing Manager",
+      content: "Pokus helped me overcome my procrastination habits. The Pomodoro timer with break reminders has improved my productivity by at least 40%. Highly recommended!",
     avatar: "ED"
-  },
-  {
-    name: "David Kim",
-    role: "Data Analyst", 
-    content: "Simple, effective, and exactly what I needed. Pokus doesn't overwhelm you with features – it just works. The ambient sounds library is surprisingly comprehensive and relaxing.",
+    },
+    {
+      name: "David Kim",
+      role: "Data Analyst",
+      content: "Simple, effective, and exactly what I needed. Pokus doesn't overwhelm you with features – it just works. The ambient sounds library is surprisingly comprehensive and relaxing.",
     avatar: "DK"
   },
   {
@@ -197,35 +197,9 @@ const TestimonialsWall = () => {
           />
         </div>
 
-        {/* Small Tablet: Two columns */}
+        {/* Desktop: Two columns */}
         <div 
-          className="hidden sm:block md:hidden h-full"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="grid grid-cols-2 gap-3 h-full">
-            <InfiniteScrollColumn
-              testimonials={testimonials}
-              direction="up"
-              speed={60}
-              startOffset={0}
-              isPaused={isPaused}
-              columnIndex={0}
-            />
-            <InfiniteScrollColumn
-              testimonials={testimonials}
-              direction="down"
-              speed={65}
-              startOffset={-100}
-              isPaused={isPaused}
-              columnIndex={1}
-            />
-          </div>
-        </div>
-
-        {/* Medium Tablet: Two columns */}
-        <div 
-          className="hidden md:block lg:hidden h-full"
+          className="hidden sm:block h-full"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -245,40 +219,6 @@ const TestimonialsWall = () => {
               startOffset={-150}
               isPaused={isPaused}
               columnIndex={1}
-            />
-          </div>
-        </div>
-
-        {/* Desktop: Three columns */}
-        <div 
-          className="hidden lg:block h-full"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="grid grid-cols-3 gap-4 xl:gap-6 h-full max-w-7xl mx-auto">
-            <InfiniteScrollColumn
-              testimonials={testimonials}
-              direction="up"
-              speed={80}
-              startOffset={0}
-              isPaused={isPaused}
-              columnIndex={0}
-            />
-            <InfiniteScrollColumn
-              testimonials={testimonials}
-              direction="down"
-              speed={85}
-              startOffset={-100}
-              isPaused={isPaused}
-              columnIndex={1}
-            />
-            <InfiniteScrollColumn
-              testimonials={testimonials}
-              direction="up"
-              speed={90}
-              startOffset={-200}
-              isPaused={isPaused}
-              columnIndex={2}
             />
           </div>
         </div>

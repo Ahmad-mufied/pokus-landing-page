@@ -69,30 +69,35 @@ const teamMembers: TeamMember[] = [
 
 const containerVariants = {
   hidden: {},
-  show: {
+  visible: {
     transition: {
-      staggerChildren: 0.05
+      staggerChildren: 0.15,
+      delayChildren: 0.2
     }
   }
-}
+} as const
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 80, scale: 0.85, filter: 'blur(4px)', boxShadow: '0 0 0 0 rgba(59,130,246,0)', ring: '0' },
-  show: (i: number) => ({
+  hidden: { 
+    opacity: 0, 
+    y: 30, 
+    scale: 0.95,
+    filter: 'blur(2px)',
+    boxShadow: '0 0 0 0 rgba(59,130,246,0)',
+  },
+  visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     filter: 'blur(0px)',
-    boxShadow: '0 0 16px 0 rgba(59,130,246,0.15)',
+    boxShadow: '0 10px 30px -10px rgba(59,130,246,0.2)',
     transition: {
-      duration: 0.8,
-      type: 'spring' as const,
-      bounce: 0.45,
-      damping: 8,
-      delay: i * 0.06
+      type: 'spring',
+      stiffness: 260,
+      damping: 20,
     }
-  })
-}
+  }
+} as const
 
 const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMember) => {
   const [isInView, setIsInView] = useState(false)
@@ -100,14 +105,14 @@ const TeamCard = ({ name, position, role, avatarUrl, social, idx = 0 }: TeamMemb
       <motion.div
       variants={cardVariants}
       custom={idx}
-      animate={isInView ? 'show' : 'hidden'}
-      onViewportEnter={() => setIsInView(false)}
+      animate={isInView ? 'visible' : 'hidden'}
+      onViewportEnter={() => setIsInView(true)}
       viewport={{ amount: 0.35 }}
       whileHover={{ scale: 1.045, boxShadow: '0 8px 32px 0 rgba(59,130,246,0.25)', borderColor: '#60a5fa' }}
       whileFocus={{ scale: 1.045, boxShadow: '0 8px 32px 0 rgba(59,130,246,0.25)', borderColor: '#60a5fa' }}
       tabIndex={0}
       aria-label={`Team member: ${name}, ${position}`}
-      className="relative mt-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-3 sm:px-4 pt-16 sm:pt-20 pb-4 sm:pb-6 shadow-md text-white text-center transition-all duration-300 flex flex-col items-center min-h-[240px] sm:min-h-[260px] md:min-h-[280px] outline-none focus:ring-2 focus:ring-blue-400 overflow-visible"
+      className="relative mt-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-3 sm:px-4 pt-16 sm:pt-20 pb-4 sm:pb-6 shadow-md text-white text-center transition-all duration-300 flex flex-col items-center min-h-[240px] sm:min-h-[260px] md:min-h-[280px] outline-none focus:ring-2 focus:ring-blue-400"
       style={{ outline: 'none' }}
     >
       <div className="absolute -top-10 sm:-top-12 md:-top-14 left-1/2 -translate-x-1/2 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 overflow-visible">
@@ -199,7 +204,16 @@ const TeamSection = ({ onFinish }: TeamSectionProps) => {
   const titleRef = useRef(null)
   const isInView = useInView(titleRef, { once: false, amount: 0.5 })
   return (
-    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 text-white overflow-x-hidden">
+    <section className="py-8 sm:py-12 md:py-16 text-white w-full overflow-x-hidden relative rounded-4xl" style={{
+      background: 'linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(7, 29, 65, 1) 100%)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"%3E%3Cpath fill=\"%231e40af\" fill-opacity=\"1\" d=\"M0,64L48,80C96,96,192,128,288,149.3C384,171,480,181,576,176C672,171,768,149,864,128C960,107,1056,85,1152,90.7C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z\"%3E%3C/path%3E%3C/svg%3E")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}></div>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -222,10 +236,10 @@ const TeamSection = ({ onFinish }: TeamSectionProps) => {
           />
         </motion.div>
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mt-10 md:mt-16 lg:mt-20 overflow-x-hidden overflow-y-hidden px-2"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mt-10 md:mt-16 lg:mt-20 px-2 relative"
           variants={containerVariants}
           initial="hidden"
-          whileInView="show"
+          whileInView="visible"
           viewport={{ once: false, amount: 0.35 }}
           onAnimationComplete={onFinish}
         >

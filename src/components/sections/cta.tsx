@@ -84,7 +84,7 @@ const Cta = ({ visible = true }: CtaProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 40 }}
       transition={{ duration: 0.7, ease: easeOut }}
-      className="relative mt-10 sm:mt-14 md:mt-16 py-8 sm:py-14 md:py-24 px-2 sm:px-4 md:px-8 bg-gradient-to-b from-background/60 to-background/60 backdrop-blur-xl overflow-hidden shadow-[inset_0_30px_60px_-10px_rgba(0,0,0,0.3)]"
+      className="relative   py-8 sm:py-14 md:py-24 px-2 sm:px-4 md:px-8  bg-gradient-to-b w-full from-background/60 to-background/60 backdrop-blur-xl overflow-hidden shadow-[inset_0_30px_60px_-10px_rgba(0,0,0,0.3)]"
     >
       {/* Enhanced glowing background */}
       <motion.div 
